@@ -1,0 +1,21 @@
+{
+  "name": "mypdfservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmirBarkinOzWside/MyPdfService.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EmirBarkinOzWside/MyPdfService/issues"
+  },
+  "homepage": "https://github.com/EmirBarkinOzWside/MyPdfService#readme"
+}
