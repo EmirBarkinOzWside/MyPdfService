@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Salesforce'un desteklemediği Modern CSS'ler burada çalışır! */
+        body { font-family: 'Helvetica', sans-serif; color: #333; padding: 40px; }
+        .header { text-align: right; margin-bottom: 30px; }
+        .date { color: red; font-weight: bold; }
+        
+        .main-title { 
+            text-align: center; 
+            font-size: 24px; 
+            font-weight: bold; 
+            margin-bottom: 40px; 
+            text-transform: uppercase;
+        }
+
+        .content { font-size: 16px; line-height: 1.6; }
+        .highlight { background-color: yellow; font-weight: bold; padding: 0 5px; }
+        
+        /* Tablo Tasarımı */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background-color: #f2f2f2; text-align: left; padding: 10px; border-bottom: 2px solid #ddd; }
+        td { padding: 10px; border-bottom: 1px solid #ddd; }
+        
+        .footer { margin-top: 50px; font-size: 12px; color: #777; text-align: center; border-top: 1px solid #eee; padding-top: 10px;}
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div>Tarih: <span class="date">{{tarih}}</span></div>
+        <div style="color:red; font-size:12px;">Teklif pdf'inin oluşturulduğu tarih</div>
+    </div>
+
+    <div class="main-title">
+         KARGO TAŞIMA FİYAT TEKLİFİDİR.
+    </div>
+
+    <div class="content">
+        <p>SAYIN; <span class="highlight">{{musteriIsmi}}</span> <span style="color:red; font-size:12px;">(QuoteAccountId)</span></p>
+
+        <p>
+            Taşımacılık sektöründe 40. yılını kutlayan Yurtiçi Kargo, pazardaki kaliteyi ve verimliliği artırmak, 
+            sektördeki çalışma şartlarını ve yapılan işleri tüm Türkiye'ye duyurmak amacıyla sizinle çalışmaktan onur duyar.
+        </p>
+        
+        <p>Aşağıda teklif detayları sunulmuştur:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Ürün Adı</th>
+                    <th>Miktar</th>
+                    <th>Fiyat</th>
+                    <th>Toplam</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each urunler}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>{{this.price}} ₺</td>
+                    <td>{{this.total}} ₺</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <h3 style="text-align: right; margin-top:20px;">GENEL TOPLAM: {{genelToplam}} ₺</h3>
+
+    </div>
+
+    <div class="footer">
+        Bu belge {{olusturanKisi}} tarafından Wside Teknoloji sistemi üzerinden oluşturulmuştur.
+    </div>
+
+</body>
+</html>

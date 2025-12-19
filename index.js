@@ -1,33 +1,42 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const bodyParser = require('body-parser');
-const app = express();
+const hbs = require('handlebars'); // Şablon motoru
+const fs = require('fs'); // Dosya okumak için
+const path = require('path');
 
-// Gelen JSON verisinin boyut sınırını artırıyoruz
+const app = express();
 app.use(bodyParser.json({ limit: '50mb' }));
 
 app.post('/generate', async (req, res) => {
     try {
-        const { htmlContent } = req.body;
+        // Salesforce'tan artık HTML değil, sadece VERİ (data) gelecek
+        const { data } = req.body; 
 
-        if (!htmlContent) {
-            return res.status(400).json({ error: 'HTML içeriği gönderilmedi.' });
+        if (!data) {
+            return res.status(400).json({ error: 'Veri (data) gönderilmedi.' });
         }
 
-        console.log("PDF isteği alındı, işleniyor...");
+        console.log("Şablonlu PDF isteği alındı...");
 
-        // Tarayıcıyı başlat
+        // 1. Şablon Dosyasını Oku (templates/teklif.html)
+        const templatePath = path.join(__dirname, 'templates', 'teklif.html');
+        const templateHtml = fs.readFileSync(templatePath, 'utf8');
+
+        // 2. Handlebars ile Veriyi Şablona Göm
+        const template = hbs.compile(templateHtml);
+        const finalHtml = template(data); // {{musteriIsmi}} -> "Ahmet Yılmaz" olur
+
+        // 3. Puppeteer Başlat
         const browser = await puppeteer.launch({
             headless: 'new',
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
-
         const page = await browser.newPage();
 
-        // HTML'i sayfaya yerleştir
-        await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
+        // 4. Oluşan HTML'i Yazdır
+        await page.setContent(finalHtml, { waitUntil: 'networkidle0' });
 
-        // PDF oluştur
         const pdfBuffer = await page.pdf({
             format: 'A4',
             printBackground: true,
@@ -36,19 +45,15 @@ app.post('/generate', async (req, res) => {
 
         await browser.close();
 
-        // Base64'e çevir ve gönder
+        // 5. Sonuç Gönder
         const pdfBase64 = pdfBuffer.toString('base64');
-        
-        console.log("PDF başarıyla oluşturuldu.");
         res.json({ status: 'Success', base64: pdfBase64 });
 
     } catch (error) {
-        console.error("Hata oluştu:", error);
+        console.error("Hata:", error);
         res.status(500).json({ error: error.message });
     }
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Sunucu çalışıyor! Port: ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Sunucu ${PORT} portunda çalışıyor.`));
