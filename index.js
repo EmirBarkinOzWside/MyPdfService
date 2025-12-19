@@ -1,41 +1,57 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const bodyParser = require('body-parser');
-const hbs = require('handlebars'); // Şablon motoru
-const fs = require('fs'); // Dosya okumak için
+const hbs = require('handlebars');
+const fs = require('fs');
 const path = require('path');
 
 const app = express();
 app.use(bodyParser.json({ limit: '50mb' }));
 
-app.post('/generate', async (req, res) => {
-    try {
-        // Salesforce'tan artık HTML değil, sadece VERİ (data) gelecek
-        const { data } = req.body; 
+// GLOBAL TARAYICI DEĞİŞKENİ
+let browser;
 
-        if (!data) {
-            return res.status(400).json({ error: 'Veri (data) gönderilmedi.' });
-        }
-
-        console.log("Şablonlu PDF isteği alındı...");
-
-        // 1. Şablon Dosyasını Oku (templates/teklif.html)
-        const templatePath = path.join(__dirname, 'templates', 'teklif.html');
-        const templateHtml = fs.readFileSync(templatePath, 'utf8');
-
-        // 2. Handlebars ile Veriyi Şablona Göm
-        const template = hbs.compile(templateHtml);
-        const finalHtml = template(data); // {{musteriIsmi}} -> "Ahmet Yılmaz" olur
-
-        // 3. Puppeteer Başlat
-        const browser = await puppeteer.launch({
+// Tarayıcıyı Başlatma Fonksiyonu (Sadece ihtiyaç olduğunda çalışır)
+async function getBrowser() {
+    if (!browser || !browser.isConnected()) {
+        console.log("Yeni tarayıcı başlatılıyor...");
+        browser = await puppeteer.launch({
             headless: 'new',
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage', // Bellek tasarrufu için önemli
+                '--single-process' // Hız için
+            ]
         });
-        const page = await browser.newPage();
+    }
+    return browser;
+}
 
-        // 4. Oluşan HTML'i Yazdır
-        await page.setContent(finalHtml, { waitUntil: 'networkidle0' });
+app.post('/generate', async (req, res) => {
+    let page = null;
+    try {
+        const { data } = req.body;
+        if (!data) return res.status(400).json({ error: 'Veri yok.' });
+
+        console.log("Hızlı PDF isteği geldi...");
+
+        // 1. Şablonu Oku
+        const templatePath = path.resolve('./templates/teklif.html');
+        const templateHtml = fs.readFileSync(templatePath, 'utf8');
+        const template = hbs.compile(templateHtml);
+        const finalHtml = template(data);
+
+        // 2. Hazır Tarayıcıyı Kullan (Sıfırdan açmak yok!)
+        const browserInstance = await getBrowser();
+        page = await browserInstance.newPage();
+
+        // 3. İçeriği Yükle (En Hızlı Mod: domcontentloaded)
+        // networkidle0 yerine bunu kullanmak süreyi çok kısaltır.
+        await page.setContent(finalHtml, { 
+            waitUntil: 'domcontentloaded', 
+            timeout: 30000 
+        });
 
         const pdfBuffer = await page.pdf({
             format: 'A4',
@@ -43,17 +59,22 @@ app.post('/generate', async (req, res) => {
             margin: { top: '20px', right: '20px', bottom: '20px', left: '20px' }
         });
 
-        await browser.close();
+        // 4. Sadece Sekmeyi Kapat (Tarayıcı açık kalsın)
+        await page.close();
 
-        // 5. Sonuç Gönder
         const pdfBase64 = pdfBuffer.toString('base64');
         res.json({ status: 'Success', base64: pdfBase64 });
 
     } catch (error) {
         console.error("Hata:", error);
+        if (page) await page.close().catch(() => {}); // Hata olursa sekmeyi kapat
         res.status(500).json({ error: error.message });
     }
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Sunucu ${PORT} portunda çalışıyor.`));
+app.listen(PORT, async () => {
+    console.log(`Sunucu ${PORT} portunda!`);
+    // Sunucu açılır açılmaz tarayıcıyı hazırla
+    await getBrowser();
+});
