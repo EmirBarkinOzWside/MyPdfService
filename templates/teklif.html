@@ -8,11 +8,10 @@
         @page { size: A4; margin: 0; }
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #fff; -webkit-print-color-adjust: exact; color: #333; }
         
-        /* ORTAK SINIFLAR (İç Sayfalar İçin) */
+        /* ORTAK SINIFLAR */
         .page-std {
             width: 210mm;
             height: 297mm;
-            /* Footer aşağıda kalsın diye alt boşluk 10mm */
             padding: 20mm 20mm 10mm 20mm; 
             box-sizing: border-box;
             background: white;
@@ -29,7 +28,7 @@
         .std-footer-right { text-align: right; font-size: 10px; color: #777; line-height: 1.4; }
         .std-footer-right a { color: #E31837; text-decoration: none; font-weight: bold; }
 
-        /* --- 1. SAYFA (KAPAK) STİLLERİ --- */
+        /* KAPAK */
         .page-cover { width: 210mm; height: 297mm; position: relative; display: flex; flex-direction: column; justify-content: space-between; background: white; margin-bottom: 0; }
         .top-section { width: 100%; text-align: center; padding-top: 40px; }
         .sf-badge { width: 140px; height: auto; }
@@ -41,7 +40,7 @@
         .footer-section-cover { width: 100%; line-height: 0; }
         .footer-img { width: 100%; height: auto; display: block; }
 
-        /* --- 2. SAYFA (ÖN YAZI) STİLLERİ --- */
+        /* ÖN YAZI */
         .letter-content { flex-grow: 1; font-size: 14px; line-height: 1.6; color: #444; padding: 0 10px; }
         .letter-info { margin-bottom: 30px; font-weight: 600; }
         .letter-body p { margin-bottom: 15px; text-align: justify; }
@@ -49,34 +48,26 @@
         .signature-name { font-weight: bold; font-size: 15px; color: #000; }
         .signature-title { font-style: italic; color: #666; margin-bottom: 5px; display: block;}
 
-        /* --- 3. SAYFA (İÇİNDEKİLER) ÖZEL STİLLERİ --- */
+        /* İÇİNDEKİLER */
         .toc-content { flex-grow: 1; padding-top: 20px; }
         .toc-title { font-size: 24px; font-weight: bold; color: #E31837; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 40px; letter-spacing: 1px; }
-        
         .toc-list { list-style: none; padding: 0; margin: 0; }
         .toc-item { display: flex; align-items: center; margin-bottom: 20px; }
-        
-        /* Kırmızı Numaralar (01, 02...) */
-        .toc-number { 
-            font-size: 36px; 
-            font-weight: 800; 
-            color: #E31837; 
-            margin-right: 20px; 
-            width: 60px; 
-            text-align: right; 
-            line-height: 1;
-        }
-        
-        /* Başlıklar */
-        .toc-text { 
-            font-size: 16px; 
-            font-weight: 600; 
-            color: #333; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px; 
-        }
+        .toc-number { font-size: 36px; font-weight: 800; color: #E31837; margin-right: 20px; width: 60px; text-align: right; line-height: 1; }
+        .toc-text { font-size: 16px; font-weight: 600; color: #333; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* --- 4. SAYFA (TABLO) STİLLERİ --- */
+        /* BELGE BİLGİLERİ (YENİ) */
+        .doc-info-content { flex-grow: 1; padding-top: 10px; }
+        .section-header { font-size: 18px; font-weight: 700; color: #E31837; margin-bottom: 20px; text-transform: uppercase; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        
+        .info-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 14px; }
+        .info-table td { padding: 12px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+        .info-label { width: 40%; font-weight: 700; color: #333; text-transform: uppercase; background-color: #fafafa; }
+        .info-value { color: #555; }
+
+        .privacy-text { font-size: 13px; color: #555; text-align: justify; line-height: 1.6; }
+
+        /* TABLO */
         .table-content { flex-grow: 1; }
         .table-title { font-size: 18px; font-weight: 600; color: #E31837; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .quote-table { width: 100%; border-collapse: collapse; font-size: 12px; }
@@ -163,7 +154,6 @@
                 <img src="data:image/png;base64,{{imgWside}}">
             {{/if}}
         </div>
-
         <div class="toc-content">
             <div class="toc-title">İÇİNDEKİLER</div>
             <ul class="toc-list">
@@ -180,6 +170,67 @@
                     <span class="toc-text">SALESFORCE PROJE KAPSAM ve TEKLİFİ</span>
                 </li>
             </ul>
+        </div>
+        <div class="std-footer">
+            <div class="std-footer-left">
+                {{#if imgSalesforceLogo}}
+                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
+                {{/if}}
+            </div>
+            <div class="std-footer-right">
+                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
+                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
+                Ataşehir / İstanbul<br>
+                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
+                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-std">
+        <div class="std-header">
+            {{#if imgWside}}
+                <img src="data:image/png;base64,{{imgWside}}">
+            {{/if}}
+        </div>
+        
+        <div class="doc-info-content">
+            <div class="section-header">1. BELGE BİLGİLERİ</div>
+            
+            <table class="info-table">
+                <tr>
+                    <td class="info-label">HAZIRLAYAN</td>
+                    <td class="info-value">{{ownerName}}</td>
+                </tr>
+                <tr>
+                    <td class="info-label">YÜRÜRLÜK TARİHİ</td>
+                    <td class="info-value">{{olusturmaTarihi}}</td>
+                </tr>
+                <tr>
+                    <td class="info-label">TEKLİF GEÇERLİLİK SÜRESİ</td>
+                    <td class="info-value">{{gecerlilikTarihi}}</td>
+                </tr>
+                <tr>
+                    <td class="info-label">BELGE STATÜSÜ</td>
+                    <td class="info-value">Versiyon 1.0</td>
+                </tr>
+                <tr>
+                    <td class="info-label">ŞİRKET / İŞ BİRİMİ</td>
+                    <td class="info-value">Wside Teknoloji ve Yazılım / Salesforce</td>
+                </tr>
+            </table>
+
+            <div class="section-header">GİZLİLİK</div>
+            
+            <div class="privacy-text">
+                <p>
+                    Bu doküman Wside Teknoloji ve Yazılım A.Ş. ürün ve hizmetlerine özgü gizli bilgiler içermektedir. 
+                    <strong>{{musteriIsmi}}</strong> bu dokümandaki bilgileri kurum dışına aktarılmayacağını ve bu dokümanı 
+                    değerlendirme amaçlı kullanım dışında kullanmayacağını kabul etmiş sayılır. Bu dokümanın olumlu 
+                    değerlendirilmesi ve Wside Danışmanlık ile sözleşme imzalanması durumunda, buradaki sınırlamalar 
+                    geçerliliğini yitirecek ve gizlilik koşulları sözleşme tarafından belirlenecektir.
+                </p>
+            </div>
         </div>
 
         <div class="std-footer">
