@@ -12,7 +12,7 @@
         .page-std {
             width: 210mm;
             height: 297mm;
-            padding: 20mm 20mm 10mm 20mm; /* Alt boşluk 10mm */
+            padding: 20mm 20mm 10mm 20mm;
             box-sizing: border-box;
             background: white;
             display: flex;
@@ -28,23 +28,49 @@
         .std-footer-right { text-align: right; font-size: 10px; color: #777; line-height: 1.4; }
         .std-footer-right a { color: #E31837; text-decoration: none; font-weight: bold; }
 
-        /* KAPAK */
+        /* KAPAK VE ARKA KAPAK ORTAK */
         .page-cover { width: 210mm; height: 297mm; position: relative; display: flex; flex-direction: column; justify-content: space-between; background: white; margin-bottom: 0; }
         .top-section { width: 100%; text-align: center; padding-top: 40px; }
         .sf-badge { width: 140px; height: auto; }
+        .footer-section-cover { width: 100%; line-height: 0; }
+        .footer-img { width: 100%; height: auto; display: block; }
+        
+        /* ÖN KAPAK ÖZEL */
         .center-section { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding-bottom: 80px; }
         .logo-container { display: flex; align-items: center; gap: 25px; }
         .wside-logo-cover { height: 55px; width: auto; }
         .vertical-line { width: 2px; height: 65px; background-color: #E31837; }
         .client-name { font-size: 26px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; max-width: 350px; line-height: 1.2; }
-        .footer-section-cover { width: 100%; line-height: 0; }
-        .footer-img { width: 100%; height: auto; display: block; }
 
-        /* STANDART İÇERİK */
+        /* ARKA KAPAK (KAPANIŞ) ÖZEL */
+        .back-cover-content { 
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            padding-bottom: 50px;
+        }
+        .thank-you-text { font-size: 32px; font-weight: 800; color: #333; letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase; }
+        .wside-logo-large { height: 70px; width: auto; margin-bottom: 40px; }
+        .contact-box { border-top: 2px solid #E31837; border-bottom: 2px solid #E31837; padding: 30px 0; width: 80%; }
+        .contact-item { margin-bottom: 10px; font-size: 14px; color: #555; }
+        .contact-item strong { color: #333; display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+        .contact-item a { color: #E31837; text-decoration: none; font-weight: 600; font-size: 16px; }
+
+        /* DİĞER İÇERİK STİLLERİ (Önceki sayfalardan) */
         .content-body { flex-grow: 1; padding-top: 10px; }
         .section-header { font-size: 18px; font-weight: 700; color: #E31837; margin-bottom: 20px; text-transform: uppercase; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .sub-header { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 15px; text-transform: uppercase; margin-top: 30px; }
+        .info-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 14px; }
+        .info-table td { padding: 12px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+        .info-label { width: 40%; font-weight: 700; color: #333; text-transform: uppercase; background-color: #fafafa; }
+        .info-value { color: #555; }
+        .std-text p { font-size: 14px; line-height: 1.6; text-align: justify; color: #444; margin-bottom: 15px; }
+        .privacy-text { font-size: 13px; color: #555; text-align: justify; line-height: 1.6; }
         
+        /* MEKTUP */
         .letter-content { flex-grow: 1; font-size: 14px; line-height: 1.6; color: #444; padding: 0 10px; }
         .letter-info { margin-bottom: 30px; font-weight: 600; }
         .letter-body p { margin-bottom: 15px; text-align: justify; }
@@ -52,6 +78,7 @@
         .signature-name { font-weight: bold; font-size: 15px; color: #000; }
         .signature-title { font-style: italic; color: #666; margin-bottom: 5px; display: block;}
 
+        /* İÇİNDEKİLER */
         .toc-content { flex-grow: 1; padding-top: 20px; }
         .toc-title { font-size: 24px; font-weight: bold; color: #E31837; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 40px; letter-spacing: 1px; }
         .toc-list { list-style: none; padding: 0; margin: 0; }
@@ -59,25 +86,19 @@
         .toc-number { font-size: 36px; font-weight: 800; color: #E31837; margin-right: 20px; width: 60px; text-align: right; line-height: 1; }
         .toc-text { font-size: 16px; font-weight: 600; color: #333; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .info-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 14px; }
-        .info-table td { padding: 12px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
-        .info-label { width: 40%; font-weight: 700; color: #333; text-transform: uppercase; background-color: #fafafa; }
-        .info-value { color: #555; }
-        .std-text p { font-size: 14px; line-height: 1.6; text-align: justify; color: #444; margin-bottom: 15px; }
-        .privacy-text { font-size: 13px; color: #555; text-align: justify; line-height: 1.6; }
-
-        /* TEKLİF & TABLOLAR */
+        /* TABLOLAR */
         .proposal-intro { font-size: 14px; color: #333; margin-bottom: 15px; }
         .license-header { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 10px; margin-top: 5px; text-transform: uppercase; }
         .license-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 15px; }
         .license-table th { background-color: #E31837; color: white; padding: 8px; text-align: center; font-weight: 600; border: 1px solid #cc1532; }
         .license-table td { padding: 8px; border: 1px solid #eee; text-align: center; color: #444; }
         .license-table td:first-child { text-align: left; }
-        
+        .proposal-totals { width: 100%; display: flex; flex-direction: column; align-items: flex-end; margin-bottom: 20px; }
+        .prop-total-row { display: flex; justify-content: space-between; width: 250px; font-size: 13px; margin-bottom: 5px; }
+        .prop-grand-total { font-weight: bold; color: #E31837; font-size: 15px; border-top: 1px solid #ddd; padding-top: 5px; }
         .conditions-box { margin-bottom: 25px; }
         .conditions-list { list-style: disc; padding-left: 20px; margin: 0; font-size: 12px; color: #555; }
         .conditions-list li { margin-bottom: 4px; }
-        
         .invoice-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 10px; }
         .invoice-table th { background-color: #333; color: white; padding: 8px; text-align: left; font-weight: 600; }
         .invoice-table td { padding: 8px; border-bottom: 1px solid #eee; color: #444; }
@@ -88,45 +109,13 @@
         .terms-list a { color: #E31837; text-decoration: underline; font-weight: bold; }
         .closing-text { margin-top: 30px; font-size: 14px; font-weight: 600; color: #333; }
 
-        /* --- GÜNCELLENEN TOPLAM KUTUSU TASARIMI --- */
-        .totals-container { 
-            display: flex; 
-            justify-content: flex-end; 
-            margin-top: 30px; 
-        }
-        
-        /* Resimdeki gibi Beyaz Kart Görünümü */
-        .totals-box { 
-            width: 320px; 
-            background: #fff; /* Beyaz arka plan */
-            padding: 20px; 
-            border-radius: 6px; 
-            border: 1px solid #eee; /* İnce gri çerçeve */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03); /* Çok hafif gölge */
-        }
-        
-        /* Satırlar */
-        .total-row { 
-            display: flex; 
-            justify-content: space-between; 
-            padding: 5px 0; 
-            font-size: 14px; 
-            color: #444; 
-        }
-        
-        /* GENEL TOPLAM SATIRI */
-        .total-row.grand-total { 
-            margin-top: 15px; 
-            padding-top: 15px; 
-            border-top: 1px solid #ddd; /* Ayırıcı Çizgi */
-            font-size: 18px; 
-            font-weight: 800; /* Kalın */
-            color: #E31837; /* Kırmızı */
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        /* TOPLAM KUTUSU TASARIMI */
+        .totals-container { display: flex; justify-content: flex-end; margin-top: 30px; }
+        .totals-box { width: 320px; background: #fff; padding: 20px; border-radius: 6px; border: 1px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        .total-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 14px; color: #444; }
+        .total-row.grand-total { margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 18px; font-weight: 800; color: #E31837; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* Sayfa 9'daki Tablo */
+        /* TABLO GENEL (Son sayfa için) */
         .table-content { flex-grow: 1; }
         .table-title { font-size: 18px; font-weight: 600; color: #E31837; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .quote-table { width: 100%; border-collapse: collapse; font-size: 12px; }
@@ -198,7 +187,7 @@
                 Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
                 Ataşehir / İstanbul<br>
                 <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
             </div>
         </div>
     </div>
@@ -213,15 +202,15 @@
             <div class="toc-title">İÇİNDEKİLER</div>
             <ul class="toc-list">
                 <li class="toc-item">
-                    <span class="toc-number">01.</span>
+                    <span class="toc-number">1.</span>
                     <span class="toc-text">BELGE BİLGİLERİ</span>
                 </li>
                 <li class="toc-item">
-                    <span class="toc-number">02.</span>
+                    <span class="toc-number">2.</span>
                     <span class="toc-text">WSIDE ÖZLÜK BİLGİLERİ</span>
                 </li>
                 <li class="toc-item">
-                    <span class="toc-number">03.</span>
+                    <span class="toc-number">3.</span>
                     <span class="toc-text">SALESFORCE PROJE KAPSAM ve TEKLİFİ</span>
                 </li>
             </ul>
@@ -237,7 +226,7 @@
                 Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
                 Ataşehir / İstanbul<br>
                 <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+                <a href=".tr" target="_blank">www.wside.com</a>
             </div>
         </div>
     </div>
@@ -294,7 +283,7 @@
                 Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
                 Ataşehir / İstanbul<br>
                 <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
             </div>
         </div>
     </div>
@@ -340,7 +329,7 @@
                 Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
                 Ataşehir / İstanbul<br>
                 <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
             </div>
         </div>
     </div>
@@ -386,7 +375,7 @@
                 Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
                 Ataşehir / İstanbul<br>
                 <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
             </div>
         </div>
     </div>
@@ -491,7 +480,7 @@
                 Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
                 Ataşehir / İstanbul<br>
                 <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
             </div>
         </div>
     </div>
@@ -536,7 +525,7 @@
                 Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
                 Ataşehir / İstanbul<br>
                 <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
             </div>
         </div>
     </div>
@@ -548,7 +537,7 @@
             {{/if}}
         </div>
         <div class="table-content">
-            <div class="table-title">Hizmet & Lisans Detayları (Alternatif)</div>
+            <div class="table-title">EK-1: Detaylı Lisans Listesi</div>
             <table class="quote-table">
                 <thead>
                     <tr>
@@ -575,15 +564,15 @@
                 <div class="totals-box">
                     <div class="total-row">
                         <span>Ara Toplam:</span>
-                        <span>{{araToplam}}</span>
+                        <span>{{araToplam}} {{paraBirimi}}</span>
                     </div>
                     <div class="total-row">
                         <span>Vergi:</span>
-                        <span>{{vergi}}</span>
+                        <span>{{vergi}} {{paraBirimi}}</span>
                     </div>
                     <div class="total-row grand-total">
                         <span>GENEL TOPLAM:</span>
-                        <span>{{genelToplam}}</span>
+                        <span>{{genelToplam}} {{paraBirimi}}</span>
                     </div>
                 </div>
             </div>
@@ -599,8 +588,47 @@
                 Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
                 Ataşehir / İstanbul<br>
                 <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+                <a href="https://www.wside.com" target="_blank">www.wside.com</a>
             </div>
+        </div>
+    </div>
+
+    <div class="page-cover">
+        <div class="top-section">
+            {{#if imgSalesforcePartner}}
+                <img src="data:image/png;base64,{{imgSalesforcePartner}}" class="sf-badge">
+            {{/if}}
+        </div>
+
+        <div class="back-cover-content">
+            <div class="thank-you-text">TEŞEKKÜRLER</div>
+            
+            {{#if imgWside}}
+                <img src="data:image/png;base64,{{imgWside}}" class="wside-logo-large">
+            {{/if}}
+
+            <div class="contact-box">
+                <div class="contact-item">
+                    <strong>Adres</strong>
+                    Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
+                    Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
+                    Ataşehir / İstanbul
+                </div>
+                <div class="contact-item">
+                    <strong>E-Posta</strong>
+                    <a href="mailto:info@wside.com.tr">info@wside.com.tr</a>
+                </div>
+                <div class="contact-item">
+                    <strong>Web</strong>
+                    <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-section-cover">
+            {{#if imgFooter}}
+                <img src="data:image/png;base64,{{imgFooter}}" class="footer-img">
+            {{/if}}
         </div>
     </div>
 
