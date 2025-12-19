@@ -8,18 +8,29 @@
         @page { size: A4; margin: 0; }
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #fff; -webkit-print-color-adjust: exact; color: #333; }
         
-        /* --- 1. SAYFA (KAPAK) STİLLERİ --- */
-        .page-cover {
+        /* ORTAK SINIFLAR (Page 2 ve 3 için) */
+        .page-std {
             width: 210mm;
             height: 297mm;
-            position: relative;
+            /* GÜNCELLEME: Alt boşluğu (3. değer) 10mm'ye düşürdüm, footer aşağı indi */
+            padding: 20mm 20mm 10mm 20mm; 
+            box-sizing: border-box;
+            background: white;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: white;
-            margin-bottom: 0;
+            break-before: page;
         }
-        /* Kapak içi stiller (Önceki koddan) */
+        .std-header { width: 100%; display: flex; justify-content: flex-end; margin-bottom: 30px; }
+        .std-header img { height: 40px; width: auto; }
+        
+        .std-footer { width: 100%; display: flex; justify-content: space-between; align-items: flex-end; padding-top: 15px; border-top: 1px solid #eee; }
+        .std-footer-left img { height: 40px; width: auto; }
+        .std-footer-right { text-align: right; font-size: 10px; color: #777; line-height: 1.4; }
+        .std-footer-right a { color: #E31837; text-decoration: none; font-weight: bold; }
+
+        /* --- 1. SAYFA (KAPAK) ÖZEL STİLLERİ --- */
+        .page-cover { width: 210mm; height: 297mm; position: relative; display: flex; flex-direction: column; justify-content: space-between; background: white; margin-bottom: 0; }
         .top-section { width: 100%; text-align: center; padding-top: 40px; }
         .sf-badge { width: 140px; height: auto; }
         .center-section { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding-bottom: 80px; }
@@ -30,81 +41,29 @@
         .footer-section-cover { width: 100%; line-height: 0; }
         .footer-img { width: 100%; height: auto; display: block; }
 
-        /* --- 2. SAYFA (ÖN YAZI) STİLLERİ --- */
-        .page-letter {
-            width: 210mm;
-            height: 297mm; /* Tam sayfa yüksekliği */
-            padding: 20mm; /* Kenar boşlukları */
-            box-sizing: border-box;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between; /* Header üstte, Footer altta, İçerik ortada */
-            break-before: page; /* Yeni sayfada başla */
-        }
-
-        /* LETTER HEADER (Sağ Üst Wside Logosu) */
-        .letter-header {
-            width: 100%;
-            display: flex;
-            justify-content: flex-end; /* Sağa yasla */
-            margin-bottom: 40px;
-        }
-        .header-logo {
-            height: 40px; /* Logo boyutu */
-            width: auto;
-        }
-
-        /* LETTER CONTENT (Orta Metin) */
-        .letter-content {
-            flex-grow: 1; /* Alanı doldur */
-            font-size: 14px; /* Metin boyutu */
-            line-height: 1.6; /* Satır aralığı */
-            color: #444;
-            padding: 0 10px;
-        }
-        .letter-info {
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-        .letter-body p {
-            margin-bottom: 15px;
-            text-align: justify; /* Metni iki yana yasla */
-        }
-        .signature-block {
-            margin-top: 50px;
-        }
+        /* --- 2. SAYFA (ÖN YAZI) İÇERİK --- */
+        .letter-content { flex-grow: 1; font-size: 14px; line-height: 1.6; color: #444; padding: 0 10px; }
+        .letter-info { margin-bottom: 30px; font-weight: 600; }
+        .letter-body p { margin-bottom: 15px; text-align: justify; }
+        .signature-block { margin-top: 50px; }
         .signature-name { font-weight: bold; font-size: 15px; color: #000; }
         .signature-title { font-style: italic; color: #666; margin-bottom: 5px; display: block;}
 
-        /* LETTER FOOTER (Alt Kısım) */
-        .letter-footer {
-            width: 100%;
-            display: flex;
-            justify-content: space-between; /* Sola ve Sağa dağıt */
-            align-items: flex-end; /* Alt hizala */
-            border-top: 1px solid #eee; /* İnce bir çizgi (opsiyonel) */
-            padding-top: 15px;
-        }
+        /* --- 3. SAYFA (TABLO) İÇERİK --- */
+        .table-content { flex-grow: 1; }
+        .table-title { font-size: 18px; font-weight: 600; color: #E31837; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         
-        /* Sol Alt: Salesforce Logo */
-        .footer-left img {
-            height: 40px; /* Logo boyutu */
-            width: auto;
-        }
+        .quote-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .quote-table th { background-color: #E31837; color: white; padding: 10px; text-align: left; font-weight: 600; }
+        .quote-table td { padding: 10px; border-bottom: 1px solid #eee; color: #444; }
+        .quote-table tr:nth-child(even) { background-color: #f9f9f9; }
+        .text-right { text-align: right; }
 
-        /* Sağ Alt: Adres Bilgisi */
-        .footer-right {
-            text-align: right;
-            font-size: 10px; /* Küçük punto */
-            color: #777;
-            line-height: 1.4;
-        }
-        .footer-right a {
-            color: #E31837;
-            text-decoration: none;
-            font-weight: bold;
-        }
+        /* Toplamlar Kutusu */
+        .totals-container { display: flex; justify-content: flex-end; margin-top: 30px; }
+        .totals-box { width: 300px; background: #fafafa; padding: 15px; border-radius: 4px; border: 1px solid #eee; }
+        .total-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px; color: #555; }
+        .total-row.grand-total { font-size: 16px; font-weight: bold; color: #E31837; border-top: 1px solid #ddd; margin-top: 10px; padding-top: 10px; }
 
     </style>
 </head>
@@ -132,46 +91,26 @@
         </div>
     </div>
 
-    <div class="page-letter">
-        
-        <div class="letter-header">
+    <div class="page-std">
+        <div class="std-header">
             {{#if imgWside}}
-                <img src="data:image/png;base64,{{imgWside}}" class="header-logo">
+                <img src="data:image/png;base64,{{imgWside}}">
             {{/if}}
         </div>
 
         <div class="letter-content">
-            
             <div class="letter-info">
                 <div>Konu : {{konu}}</div>
                 <div>Tarih : {{tarih}}</div>
             </div>
-
             <p><strong>Sayın İlgili,</strong></p>
-
             <div class="letter-body">
-                <p>
-                    <strong>{{musteriIsmi}}</strong> olarak; Salesforce projeniz için Wside firmamızdan teklif isteyerek
-                    göstermiş olduğunuz ilgi ve güvene teşekkür ederiz.
-                </p>
-                <p>
-                    Wside Danışmanlık, yurt içinde ve yurtdışında birçok başarılı referansa sahip, kendi alanında
-                    Türkiye'nin en nitelikli ve en tecrübeli danışmanlarını bünyesinde barındıran, ülkemizi dünya bilişim
-                    sektöründe üst sıralara taşımayı hedeflemiş bir danışmanlık şirketidir.
-                </p>
-                <p>
-                    Hangi sektörde olursa olsun, bir kurum için CRM uygulamalarının hayati önem taşımakta olduğunun bilinci
-                    ile, Wside Danışmanlık olarak bu projenin gerçekleşme safhasında birlikte çalışma fırsatını bulmayı
-                    ümit ediyoruz.
-                </p>
-                <p>
-                    Teklif hazırlama aşamasında sağladığınız yardıma teşekkür eder, teklifimiz ile ilgili
-                    sorularınızı cevaplandırmaya hazır olduğumuzu belirtir, çalışmalarınızda başarılar dileriz.
-                </p>
+                <p><strong>{{musteriIsmi}}</strong> olarak; Salesforce projeniz için Wside firmamızdan teklif isteyerek göstermiş olduğunuz ilgi ve güvene teşekkür ederiz.</p>
+                <p>Wside Danışmanlık, yurt içinde ve yurtdışında birçok başarılı referansa sahip, kendi alanında Türkiye'nin en nitelikli ve en tecrübeli danışmanlarını bünyesinde barındıran, ülkemizi dünya bilişim sektöründe üst sıralara taşımayı hedeflemiş bir danışmanlık şirketidir.</p>
+                <p>Hangi sektörde olursa olsun, bir kurum için CRM uygulamalarının hayati önem taşımakta olduğunun bilinci ile, Wside Danışmanlık olarak bu projenin gerçekleşme safhasında birlikte çalışma fırsatını bulmayı ümit ediyoruz.</p>
+                <p>Teklif hazırlama aşamasında sağladığınız yardıma teşekkür eder, teklifimiz ile ilgili sorularınızı cevaplandırmaya hazır olduğumuzu belirtir, çalışmalarınızda başarılar dileriz.</p>
             </div>
-
             <p>Saygılarımızla,</p>
-
             <div class="signature-block">
                 <div class="signature-name">{{ownerName}}</div>
                 <span class="signature-title">Account Executive</span>
@@ -180,13 +119,13 @@
             </div>
         </div>
 
-        <div class="letter-footer">
-            <div class="footer-left">
+        <div class="std-footer">
+            <div class="std-footer-left">
                 {{#if imgSalesforceLogo}}
                     <img src="data:image/png;base64,{{imgSalesforceLogo}}">
                 {{/if}}
             </div>
-            <div class="footer-right">
+            <div class="std-footer-right">
                 Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
                 Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
                 Ataşehir / İstanbul<br>
@@ -194,7 +133,73 @@
                 <a href="http://www.wside.com" target="_blank">www.wside.com</a>
             </div>
         </div>
+    </div>
 
+    <div class="page-std">
+        <div class="std-header">
+            {{#if imgWside}}
+                <img src="data:image/png;base64,{{imgWside}}">
+            {{/if}}
+        </div>
+
+        <div class="table-content">
+            <div class="table-title">Hizmet & Lisans Detayları</div>
+
+            <table class="quote-table">
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Ürün / Hizmet</th>
+                        <th style="width: 20%;">Açıklama</th>
+                        <th class="text-right" style="width: 10%;">Miktar</th>
+                        <th class="text-right" style="width: 15%;">Birim Fiyat</th>
+                        <th class="text-right" style="width: 15%;">Toplam</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each urunler}}
+                    <tr>
+                        <td><strong>{{urunAdi}}</strong></td>
+                        <td>{{aciklama}}</td>
+                        <td class="text-right">{{miktar}}</td>
+                        <td class="text-right">{{birimFiyat}}</td>
+                        <td class="text-right">{{toplamFiyat}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+            <div class="totals-container">
+                <div class="totals-box">
+                    <div class="total-row">
+                        <span>Ara Toplam:</span>
+                        <span>{{araToplam}}</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Vergi:</span>
+                        <span>{{vergi}}</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>GENEL TOPLAM:</span>
+                        <span>{{genelToplam}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="std-footer">
+            <div class="std-footer-left">
+                {{#if imgSalesforceLogo}}
+                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
+                {{/if}}
+            </div>
+            <div class="std-footer-right">
+                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
+                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
+                Ataşehir / İstanbul<br>
+                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
+                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+            </div>
+        </div>
     </div>
 
 </body>
