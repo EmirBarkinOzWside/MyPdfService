@@ -12,7 +12,7 @@
         .page-std {
             width: 210mm;
             height: 297mm;
-            padding: 20mm 20mm 10mm 20mm; /* Alt boşluk 10mm */
+            padding: 20mm 20mm 10mm 20mm; /* Alt boşluk 10mm footer için */
             box-sizing: border-box;
             background: white;
             display: flex;
@@ -67,28 +67,29 @@
         .std-text p { font-size: 14px; line-height: 1.6; text-align: justify; color: #444; margin-bottom: 15px; }
         .privacy-text { font-size: 13px; color: #555; text-align: justify; line-height: 1.6; }
 
-        /* TEKLİF VE FATURA PLANI SAYFASI (YENİ) */
+        /* TEKLİF VE FATURA PLANI */
         .proposal-intro { font-size: 14px; color: #333; margin-bottom: 15px; }
         .license-header { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 10px; margin-top: 5px; text-transform: uppercase; }
-        
         .license-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 15px; }
         .license-table th { background-color: #E31837; color: white; padding: 8px; text-align: center; font-weight: 600; border: 1px solid #cc1532; }
         .license-table td { padding: 8px; border: 1px solid #eee; text-align: center; color: #444; }
-        .license-table td:first-child { text-align: left; } /* Lisans ismi sola yaslı */
-        
+        .license-table td:first-child { text-align: left; }
         .proposal-totals { width: 100%; display: flex; flex-direction: column; align-items: flex-end; margin-bottom: 20px; }
         .prop-total-row { display: flex; justify-content: space-between; width: 250px; font-size: 13px; margin-bottom: 5px; }
         .prop-grand-total { font-weight: bold; color: #E31837; font-size: 15px; border-top: 1px solid #ddd; padding-top: 5px; }
-
         .conditions-box { margin-bottom: 25px; }
         .conditions-list { list-style: disc; padding-left: 20px; margin: 0; font-size: 12px; color: #555; }
         .conditions-list li { margin-bottom: 4px; }
-
         .invoice-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 10px; }
         .invoice-table th { background-color: #333; color: white; padding: 8px; text-align: left; font-weight: 600; }
         .invoice-table td { padding: 8px; border-bottom: 1px solid #eee; color: #444; }
-        
         .invoice-total-row { display: flex; justify-content: flex-end; font-size: 14px; font-weight: bold; color: #333; margin-top: 5px; }
+
+        /* TEKLİF ŞARTLARI (YENİ) */
+        .terms-list { list-style-type: disc; padding-left: 20px; font-size: 13px; color: #444; line-height: 1.6; text-align: justify; }
+        .terms-list li { margin-bottom: 10px; }
+        .terms-list a { color: #E31837; text-decoration: underline; font-weight: bold; }
+        .closing-text { margin-top: 30px; font-size: 14px; font-weight: 600; color: #333; }
 
         /* TABLO GENEL (Son sayfa için) */
         .table-content { flex-grow: 1; }
@@ -437,9 +438,53 @@
                     {{/each}}
                 </tbody>
             </table>
-            
             <div class="invoice-total-row">
                 TOPLAM: {{faturaGenelToplam}} {{paraBirimi}}
+            </div>
+
+        </div>
+        <div class="std-footer">
+            <div class="std-footer-left">
+                {{#if imgSalesforceLogo}}
+                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
+                {{/if}}
+            </div>
+            <div class="std-footer-right">
+                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
+                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
+                Ataşehir / İstanbul<br>
+                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
+                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-std">
+        <div class="std-header">
+            {{#if imgWside}}
+                <img src="data:image/png;base64,{{imgWside}}">
+            {{/if}}
+        </div>
+        <div class="content-body">
+            <div class="section-header">TEKLİF ŞARTLARI</div>
+            
+            <ul class="terms-list">
+                <li>Teklifimiz <strong>{{musteriIsmi}}</strong> için özel olarak hazırlanmış olup herhangi bir üçüncü taraf ile paylaşılamaz.</li>
+                <li>Teklifimiz <strong>{{gecerlilikTarihi}}</strong> tarihine kadar geçerlidir.</li>
+                <li>Fiyatlarımıza KDV dahil edilmemiştir.</li>
+                <li>Lisans bedeli için ödeme planı yıllık peşin olarak faturalandırılacaktır.</li>
+                <li>Ödeme, fatura tarihinden sonra 10 iş günü içinde yapılacaktır.</li>
+                <li>Müşteri, teklifin kabulü ile birlikte, teklifte açıkça belirlenen çalışma süresi boyunca lisans/lisansların iptal edilemez olduğunu ve feshedilemeyeceğini kabul eder.</li>
+                <li>Diğer üçüncü parti sistemlerle yapılacak olan entegrasyon çalışmalarındaki Salesforce kapsamı dahilindeki kısımlar kapsamımızda olup, bağlantı noktaları için diğer sistemlerde yapılacak olan çalışmalar ve Salesforce lisans sınırları dışında kalan her türlü değişiklik, kapsamımız dışındadır.</li>
+                <li>Teklifimiz, yukarıdaki başlıklar dahilinde yapılacak olan çalışmaları kapsamaktadır. Bu kapsam, analiz çalışması ile netleştirilecek olup, analizin onaylanması sonrasında, analiz kapsamı geçerli olacaktır. Proje tamamlanana kadar, analiz kapsamı dışında yapılacak olan talepler, ek efor olarak değerlendirilecektir.</li>
+                <li>İstanbul dışı konaklama, yemek, ulaşım vb. masraflar Müşteri tarafından karşılanacaktır.</li>
+                <li>Projenin uzaktan yapılacağı öngörülmüş olup, müşteri lokasyonuna gidilmesi durumunda ulaşım, otoyol, otopark Müşteri tarafından karşılanacaktır.</li>
+                <li>Kapsam dışı işler ek geliştirme olarak kabul edilecek olup; 500 USD+KDV Adam/Gün bedeli üzerinden fatura edilecektir.</li>
+                <li>Salesforce kullanım şartlarına <a href="https://www.salesforce.com/en-us/wp-content/uploads/sites/4/documents/legal/Salesforce_MSA.pdf" target="_blank">buradan</a> ulaşabilirsiniz.</li>
+            </ul>
+
+            <div class="closing-text">
+                Teklifimizin tarafınızdan kabul göreceğini umar, iş birliğimizi devam ettirmeyi dileriz.
             </div>
 
         </div>
