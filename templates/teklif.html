@@ -12,7 +12,7 @@
         .page-std {
             width: 210mm;
             height: 297mm;
-            padding: 20mm 20mm 10mm 20mm;
+            padding: 20mm 20mm 10mm 20mm; /* Alt boşluk 10mm footer için */
             box-sizing: border-box;
             background: white;
             display: flex;
@@ -59,7 +59,7 @@
         .contact-item strong { color: #333; display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
         .contact-item a { color: #E31837; text-decoration: none; font-weight: 600; font-size: 16px; }
 
-        /* DİĞER İÇERİK STİLLERİ (Önceki sayfalardan) */
+        /* DİĞER İÇERİK STİLLERİ */
         .content-body { flex-grow: 1; padding-top: 10px; }
         .section-header { font-size: 18px; font-weight: 700; color: #E31837; margin-bottom: 20px; text-transform: uppercase; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .sub-header { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 15px; text-transform: uppercase; margin-top: 30px; }
@@ -86,19 +86,18 @@
         .toc-number { font-size: 36px; font-weight: 800; color: #E31837; margin-right: 20px; width: 60px; text-align: right; line-height: 1; }
         .toc-text { font-size: 16px; font-weight: 600; color: #333; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* TABLOLAR */
+        /* TEKLİF & TABLOLAR */
         .proposal-intro { font-size: 14px; color: #333; margin-bottom: 15px; }
         .license-header { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 10px; margin-top: 5px; text-transform: uppercase; }
         .license-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 15px; }
         .license-table th { background-color: #E31837; color: white; padding: 8px; text-align: center; font-weight: 600; border: 1px solid #cc1532; }
         .license-table td { padding: 8px; border: 1px solid #eee; text-align: center; color: #444; }
         .license-table td:first-child { text-align: left; }
-        .proposal-totals { width: 100%; display: flex; flex-direction: column; align-items: flex-end; margin-bottom: 20px; }
-        .prop-total-row { display: flex; justify-content: space-between; width: 250px; font-size: 13px; margin-bottom: 5px; }
-        .prop-grand-total { font-weight: bold; color: #E31837; font-size: 15px; border-top: 1px solid #ddd; padding-top: 5px; }
+        
         .conditions-box { margin-bottom: 25px; }
         .conditions-list { list-style: disc; padding-left: 20px; margin: 0; font-size: 12px; color: #555; }
         .conditions-list li { margin-bottom: 4px; }
+        
         .invoice-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 10px; }
         .invoice-table th { background-color: #333; color: white; padding: 8px; text-align: left; font-weight: 600; }
         .invoice-table td { padding: 8px; border-bottom: 1px solid #eee; color: #444; }
@@ -114,15 +113,6 @@
         .totals-box { width: 320px; background: #fff; padding: 20px; border-radius: 6px; border: 1px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
         .total-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 14px; color: #444; }
         .total-row.grand-total { margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 18px; font-weight: 800; color: #E31837; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        /* TABLO GENEL (Son sayfa için) */
-        .table-content { flex-grow: 1; }
-        .table-title { font-size: 18px; font-weight: 600; color: #E31837; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .quote-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        .quote-table th { background-color: #E31837; color: white; padding: 10px; text-align: left; font-weight: 600; }
-        .quote-table td { padding: 10px; border-bottom: 1px solid #eee; color: #444; }
-        .quote-table tr:nth-child(even) { background-color: #f9f9f9; }
-        .text-right { text-align: right; }
 
     </style>
 </head>
@@ -420,12 +410,12 @@
             <div class="totals-container">
                 <div class="totals-box">
                     <div class="total-row">
-                        <span>Ara Toplam:</span>
+                        <span>İndirim Öncesi Toplam:</span>
                         <span>{{araToplam}} {{paraBirimi}}</span>
                     </div>
                     <div class="total-row">
-                        <span>Vergi:</span>
-                        <span>{{vergi}} {{paraBirimi}}</span>
+                        <span>Quote Discount:</span>
+                        <span>{{toplamIndirim}} {{paraBirimi}}</span>
                     </div>
                     <div class="total-row grand-total">
                         <span>GENEL TOPLAM:</span>
@@ -513,69 +503,6 @@
                 Teklifimizin tarafınızdan kabul göreceğini umar, iş birliğimizi devam ettirmeyi dileriz.
             </div>
 
-        </div>
-        <div class="std-footer">
-            <div class="std-footer-left">
-                {{#if imgSalesforceLogo}}
-                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
-                {{/if}}
-            </div>
-            <div class="std-footer-right">
-                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
-                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
-                Ataşehir / İstanbul<br>
-                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="page-std">
-        <div class="std-header">
-            {{#if imgWside}}
-                <img src="data:image/png;base64,{{imgWside}}">
-            {{/if}}
-        </div>
-        <div class="table-content">
-            <div class="table-title">EK-1: Detaylı Lisans Listesi</div>
-            <table class="quote-table">
-                <thead>
-                    <tr>
-                        <th style="width: 40%;">Ürün / Hizmet</th>
-                        <th style="width: 20%;">Açıklama</th>
-                        <th class="text-right" style="width: 10%;">Miktar</th>
-                        <th class="text-right" style="width: 15%;">Birim Fiyat</th>
-                        <th class="text-right" style="width: 15%;">Toplam</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each urunler}}
-                    <tr>
-                        <td><strong>{{urunAdi}}</strong></td>
-                        <td>{{aciklama}}</td>
-                        <td class="text-right">{{miktar}}</td>
-                        <td class="text-right">{{birimFiyat}}</td>
-                        <td class="text-right">{{toplamFiyat}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-            <div class="totals-container">
-                <div class="totals-box">
-                    <div class="total-row">
-                        <span>Ara Toplam:</span>
-                        <span>{{araToplam}} {{paraBirimi}}</span>
-                    </div>
-                    <div class="total-row">
-                        <span>Vergi:</span>
-                        <span>{{vergi}} {{paraBirimi}}</span>
-                    </div>
-                    <div class="total-row grand-total">
-                        <span>GENEL TOPLAM:</span>
-                        <span>{{genelToplam}} {{paraBirimi}}</span>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="std-footer">
             <div class="std-footer-left">
