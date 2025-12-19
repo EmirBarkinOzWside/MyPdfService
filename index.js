@@ -8,6 +8,13 @@ const path = require('path');
 const app = express();
 app.use(bodyParser.json({ limit: '50mb' }));
 
+// --- YENİ EKLENECEK KISIM (BURADAN) ---
+// Bu kod, UptimeRobot'un "Orada mısın?" sorusuna "Evet!" der.
+app.get('/', (req, res) => {
+    res.send('PDF Servisi Aktif ve Çalışıyor! 🚀');
+});
+// --- YENİ EKLENECEK KISIM (BURAYA KADAR) ---
+
 // GLOBAL TARAYICI DEĞİŞKENİ
 let browser;
 
