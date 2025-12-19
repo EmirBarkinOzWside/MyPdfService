@@ -56,20 +56,41 @@
         .toc-number { font-size: 36px; font-weight: 800; color: #E31837; margin-right: 20px; width: 60px; text-align: right; line-height: 1; }
         .toc-text { font-size: 16px; font-weight: 600; color: #333; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* STANDART İÇERİK SAYFASI (Belge, Özlük, Teklif vb.) */
+        /* STANDART İÇERİK */
         .content-body { flex-grow: 1; padding-top: 10px; }
         .section-header { font-size: 18px; font-weight: 700; color: #E31837; margin-bottom: 20px; text-transform: uppercase; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .sub-header { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 15px; text-transform: uppercase; margin-top: 30px; }
-        
         .info-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 14px; }
         .info-table td { padding: 12px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
         .info-label { width: 40%; font-weight: 700; color: #333; text-transform: uppercase; background-color: #fafafa; }
         .info-value { color: #555; }
-        
         .std-text p { font-size: 14px; line-height: 1.6; text-align: justify; color: #444; margin-bottom: 15px; }
         .privacy-text { font-size: 13px; color: #555; text-align: justify; line-height: 1.6; }
 
-        /* TABLO */
+        /* TEKLİF VE FATURA PLANI SAYFASI (YENİ) */
+        .proposal-intro { font-size: 14px; color: #333; margin-bottom: 15px; }
+        .license-header { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 10px; margin-top: 5px; text-transform: uppercase; }
+        
+        .license-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 15px; }
+        .license-table th { background-color: #E31837; color: white; padding: 8px; text-align: center; font-weight: 600; border: 1px solid #cc1532; }
+        .license-table td { padding: 8px; border: 1px solid #eee; text-align: center; color: #444; }
+        .license-table td:first-child { text-align: left; } /* Lisans ismi sola yaslı */
+        
+        .proposal-totals { width: 100%; display: flex; flex-direction: column; align-items: flex-end; margin-bottom: 20px; }
+        .prop-total-row { display: flex; justify-content: space-between; width: 250px; font-size: 13px; margin-bottom: 5px; }
+        .prop-grand-total { font-weight: bold; color: #E31837; font-size: 15px; border-top: 1px solid #ddd; padding-top: 5px; }
+
+        .conditions-box { margin-bottom: 25px; }
+        .conditions-list { list-style: disc; padding-left: 20px; margin: 0; font-size: 12px; color: #555; }
+        .conditions-list li { margin-bottom: 4px; }
+
+        .invoice-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 10px; }
+        .invoice-table th { background-color: #333; color: white; padding: 8px; text-align: left; font-weight: 600; }
+        .invoice-table td { padding: 8px; border-bottom: 1px solid #eee; color: #444; }
+        
+        .invoice-total-row { display: flex; justify-content: flex-end; font-size: 14px; font-weight: bold; color: #333; margin-top: 5px; }
+
+        /* TABLO GENEL (Son sayfa için) */
         .table-content { flex-grow: 1; }
         .table-title { font-size: 18px; font-weight: 600; color: #E31837; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .quote-table { width: 100%; border-collapse: collapse; font-size: 12px; }
@@ -300,7 +321,6 @@
         </div>
         <div class="content-body">
             <div class="section-header">3. SALESFORCE TEKLİFİ</div>
-            
             <div class="std-text">
                 <p>
                     Belirtilen kapsama göre projenin yaklaşık .... bir çalışma sonucunda tamamlanması ve canlıya alınması 
@@ -311,9 +331,7 @@
                     takviminde değişikliklere sebebiyet verebilir.
                 </p>
             </div>
-
             <div class="sub-header">KAPSAM DIŞI İŞLER</div>
-
             <div class="std-text">
                 <p>
                     Teklifimiz, yukarıdaki başlıklar dahilinde yapılacak olan çalışmaları kapsamaktadır. Bu kapsam, analiz 
@@ -347,8 +365,108 @@
                 <img src="data:image/png;base64,{{imgWside}}">
             {{/if}}
         </div>
+        <div class="content-body">
+            <div class="section-header">TEKLİF</div>
+            
+            <div class="proposal-intro">
+                <strong>{{musteriIsmi}}</strong> için öngörülen Salesforce lisans bedelleri aşağıdaki şekilde belirtilmiştir:
+            </div>
+
+            <div class="license-header">Salesforce Lisans</div>
+            <table class="license-table">
+                <thead>
+                    <tr>
+                        <th style="width: 35%;">Lisans Tipi ve Versiyonu</th>
+                        <th style="width: 10%;">Adet</th>
+                        <th style="width: 20%;">Kullanıcı / Yıl</th>
+                        <th style="width: 15%;">Kullanıcı / Ay</th>
+                        <th style="width: 20%;">Yıllık Tutar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each urunler}}
+                    <tr>
+                        <td>{{urunAdi}}</td>
+                        <td>{{miktar}}</td>
+                        <td>{{birimFiyatYillik}} {{../paraBirimi}}</td>
+                        <td>{{birimFiyat}} {{../paraBirimi}}</td>
+                        <td>{{toplamFiyat}} {{../paraBirimi}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+            <div class="proposal-totals">
+                <div class="prop-total-row">
+                    <span>Quote Discount:</span>
+                    <span>{{toplamIndirim}} {{paraBirimi}}</span>
+                </div>
+                <div class="prop-total-row prop-grand-total">
+                    <span>TOPLAM:</span>
+                    <span>{{genelToplam}} {{paraBirimi}}</span>
+                </div>
+            </div>
+
+            <div class="license-header">Şartlar</div>
+            <div class="conditions-box">
+                <ul class="conditions-list">
+                    <li>Lisans faturalamaları yıllık, peşin olarak gerçekleştirilecektir.</li>
+                    <li>Fiyatlar 24 aylık ve daha uzun süreli sözleşmeler için geçerlidir.</li>
+                    <li>Fiyatlar Salesforce son onayına tabidir.</li>
+                </ul>
+            </div>
+
+            <div class="license-header">Fatura Planı</div>
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>Fatura Planı</th>
+                        <th>Vade</th>
+                        <th>Ödeme Tarihi</th>
+                        <th>Tutar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each faturaPlanlari}}
+                    <tr>
+                        <td>{{faturaTarihi}}</td>
+                        <td>{{vade}}</td>
+                        <td>{{odemeTarihi}}</td>
+                        <td>{{tutar}} {{paraBirimi}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            
+            <div class="invoice-total-row">
+                TOPLAM: {{faturaGenelToplam}} {{paraBirimi}}
+            </div>
+
+        </div>
+        <div class="std-footer">
+            <div class="std-footer-left">
+                {{#if imgSalesforceLogo}}
+                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
+                {{/if}}
+            </div>
+            <div class="std-footer-right">
+                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
+                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
+                Ataşehir / İstanbul<br>
+                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
+                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-std">
+        <div class="std-header">
+            {{#if imgWside}}
+                <img src="data:image/png;base64,{{imgWside}}">
+            {{/if}}
+        </div>
         <div class="table-content">
-            <div class="table-title">Hizmet & Lisans Detayları</div>
+            <div class="table-title">Hizmet & Lisans Detayları (Alternatif)</div>
             <table class="quote-table">
                 <thead>
                     <tr>
