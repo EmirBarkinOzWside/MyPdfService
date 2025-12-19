@@ -1,78 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
+    <meta charset="UTF-8">
+    <title>Teklif Kapak</title>
     <style>
-        /* Salesforce'un desteklemediği Modern CSS'ler burada çalışır! */
-        body { font-family: 'Helvetica', sans-serif; color: #333; padding: 40px; }
-        .header { text-align: right; margin-bottom: 30px; }
-        .date { color: red; font-weight: bold; }
+        /* --- SAYFA YAPISI --- */
+        @page { size: A4; margin: 0; }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #fff; -webkit-print-color-adjust: exact; }
         
-        .main-title { 
-            text-align: center; 
-            font-size: 24px; 
-            font-weight: bold; 
-            margin-bottom: 40px; 
-            text-transform: uppercase;
+        .page-cover {
+            width: 210mm;
+            height: 297mm;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Üst, Orta, Alt dağılımı */
+            background: white;
         }
 
-        .content { font-size: 16px; line-height: 1.6; }
-        .highlight { background-color: yellow; font-weight: bold; padding: 0 5px; }
-        
-        /* Tablo Tasarımı */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background-color: #f2f2f2; text-align: left; padding: 10px; border-bottom: 2px solid #ddd; }
-        td { padding: 10px; border-bottom: 1px solid #ddd; }
-        
-        .footer { margin-top: 50px; font-size: 12px; color: #777; text-align: center; border-top: 1px solid #eee; padding-top: 10px;}
+        /* --- ÜST KISIM (Salesforce Logo) --- */
+        .top-section {
+            width: 100%;
+            text-align: center;
+            padding-top: 40px;
+        }
+        .sf-badge {
+            width: 140px; /* Logo boyutunu buradan ayarla */
+            height: auto;
+        }
+
+        /* --- ORTA KISIM (Wside | Müşteri) --- */
+        .center-section {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 80px; /* Biraz yukarıda dursun */
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .wside-logo {
+            height: 55px; /* Senin logonun yüksekliği */
+            width: auto;
+        }
+        .vertical-line {
+            width: 2px;
+            height: 65px;
+            background-color: #E31837; /* Kırmızı çizgi */
+        }
+        .client-name {
+            font-size: 26px;
+            font-weight: 600;
+            color: #222;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            max-width: 350px;
+            line-height: 1.2;
+        }
+
+        /* --- ALT KISIM (Footer Resmi) --- */
+        .footer-section {
+            width: 100%;
+            line-height: 0;
+        }
+        .footer-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div>Tarih: <span class="date">{{tarih}}</span></div>
-    </div>
-
-    <div class="main-title">
-         KARGO TAŞIMA FİYAT TEKLİFİDİR.
-    </div>
-
-    <div class="content">
-        <p>SAYIN; <span class="highlight">{{musteriIsmi}}</span>
-
-        <p>
-            Taşımacılık sektöründe 40. yılını kutlayan Yurtiçi Kargo, pazardaki kaliteyi ve verimliliği artırmak, 
-            sektördeki çalışma şartlarını ve yapılan işleri tüm Türkiye'ye duyurmak amacıyla sizinle çalışmaktan onur duyar.
-        </p>
+    <div class="page-cover">
         
-        <p>Aşağıda teklif detayları sunulmuştur:</p>
+        <div class="top-section">
+            {{#if imgSalesforce}}
+                <img src="data:image/png;base64,{{imgSalesforce}}" class="sf-badge">
+            {{/if}}
+        </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Ürün Adı</th>
-                    <th>Miktar</th>
-                    <th>Fiyat</th>
-                    <th>Toplam</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each urunler}}
-                <tr>
-                    <td>{{this.name}}</td>
-                    <td>{{this.quantity}}</td>
-                    <td>{{this.price}} ₺</td>
-                    <td>{{this.total}} ₺</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+        <div class="center-section">
+            <div class="logo-container">
+                {{#if imgWside}}
+                    <img src="data:image/png;base64,{{imgWside}}" class="wside-logo">
+                {{/if}}
 
-        <h3 style="text-align: right; margin-top:20px;">GENEL TOPLAM: {{genelToplam}} ₺</h3>
+                <div class="vertical-line"></div>
+                
+                <div class="client-name">
+                    {{musteriIsmi}}
+                </div>
+            </div>
+        </div>
 
-    </div>
+        <div class="footer-section">
+            {{#if imgFooter}}
+                <img src="data:image/png;base64,{{imgFooter}}" class="footer-img">
+            {{/if}}
+        </div>
 
-    <div class="footer">
-        Bu belge {{olusturanKisi}} tarafından Wside Teknoloji sistemi üzerinden oluşturulmuştur.
     </div>
 
 </body>
