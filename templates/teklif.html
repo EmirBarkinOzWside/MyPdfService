@@ -12,7 +12,7 @@
         .page-std {
             width: 210mm;
             height: 297mm;
-            padding: 20mm 20mm 10mm 20mm; 
+            padding: 20mm 20mm 10mm 20mm; /* Alt boşluk 10mm */
             box-sizing: border-box;
             background: white;
             display: flex;
@@ -56,15 +56,17 @@
         .toc-number { font-size: 36px; font-weight: 800; color: #E31837; margin-right: 20px; width: 60px; text-align: right; line-height: 1; }
         .toc-text { font-size: 16px; font-weight: 600; color: #333; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* BELGE BİLGİLERİ (YENİ) */
-        .doc-info-content { flex-grow: 1; padding-top: 10px; }
+        /* STANDART İÇERİK SAYFASI (Belge, Özlük, Teklif vb.) */
+        .content-body { flex-grow: 1; padding-top: 10px; }
         .section-header { font-size: 18px; font-weight: 700; color: #E31837; margin-bottom: 20px; text-transform: uppercase; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .sub-header { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 15px; text-transform: uppercase; margin-top: 30px; }
         
         .info-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 14px; }
         .info-table td { padding: 12px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
         .info-label { width: 40%; font-weight: 700; color: #333; text-transform: uppercase; background-color: #fafafa; }
         .info-value { color: #555; }
-
+        
+        .std-text p { font-size: 14px; line-height: 1.6; text-align: justify; color: #444; margin-bottom: 15px; }
         .privacy-text { font-size: 13px; color: #555; text-align: justify; line-height: 1.6; }
 
         /* TABLO */
@@ -193,10 +195,8 @@
                 <img src="data:image/png;base64,{{imgWside}}">
             {{/if}}
         </div>
-        
-        <div class="doc-info-content">
+        <div class="content-body">
             <div class="section-header">1. BELGE BİLGİLERİ</div>
-            
             <table class="info-table">
                 <tr>
                     <td class="info-label">HAZIRLAYAN</td>
@@ -219,9 +219,7 @@
                     <td class="info-value">Wside Teknoloji ve Yazılım / Salesforce</td>
                 </tr>
             </table>
-
             <div class="section-header">GİZLİLİK</div>
-            
             <div class="privacy-text">
                 <p>
                     Bu doküman Wside Teknoloji ve Yazılım A.Ş. ürün ve hizmetlerine özgü gizli bilgiler içermektedir. 
@@ -232,7 +230,101 @@
                 </p>
             </div>
         </div>
+        <div class="std-footer">
+            <div class="std-footer-left">
+                {{#if imgSalesforceLogo}}
+                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
+                {{/if}}
+            </div>
+            <div class="std-footer-right">
+                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
+                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
+                Ataşehir / İstanbul<br>
+                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
+                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+            </div>
+        </div>
+    </div>
 
+    <div class="page-std">
+        <div class="std-header">
+            {{#if imgWside}}
+                <img src="data:image/png;base64,{{imgWside}}">
+            {{/if}}
+        </div>
+        <div class="content-body">
+            <div class="section-header">2. WSIDE ÖZLÜK BİLGİLERİ</div>
+            <div class="sub-header">WSIDE HAKKINDA</div>
+            <div class="std-text">
+                <p>
+                    2022 yılında WSIDE Teknoloji ve Yazılım A.Ş., grup şirketi olarak kurulan, geniş ve deneyimli SALESFORCE 
+                    danışmanlık kadrosu ile lisans, danışmanlık, eğitim ve destek hizmetleri sunmaktadır. Wside, kaliteli ve 
+                    sürdürülebilir çözümlerle Türkiye ve yurtdışında gerçekleştirdiği projelere yenilerini eklemeye devam ediyor.
+                </p>
+                <p>
+                    Wside Danışmanlık olarak; SALESFORCE ürünleri (Sales Cloud, Service Cloud, Experience Cloud, Field Service 
+                    Lightning, CPQ, Marketing Cloud, Platform vs.) ile birlikte çeşitli sektörlerdeki işletmelerin planlama ve 
+                    uygulama süreçlerine katkıda bulunuyoruz.
+                </p>
+                <p>
+                    Wside danışmanları, bugüne kadar özellikle uluslararası firmalarda başarıyla gerçekleştirdiği Salesforce CRM 
+                    projelerinde kazandığı farklı bakış açısının ışığında, tüm projelerde derin bir metodoloji bilgisi, kavramsal 
+                    sürece yönelik önemli bir birikim, dokümantasyon zenginliği ve farklı organizasyonlarla çalışma ve iletişim 
+                    kurma becerisi ile hizmet sunuyor. Salesforce çözümlerinde önemli ilklere imza atan Wside, projelerinde 
+                    henüz yaygınlaşmamış Salesforce fonksiyonalitelerini kullanarak müşterilerinin rekabette öne çıkmalarına 
+                    yardımcı oluyor.
+                </p>
+            </div>
+        </div>
+        <div class="std-footer">
+            <div class="std-footer-left">
+                {{#if imgSalesforceLogo}}
+                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
+                {{/if}}
+            </div>
+            <div class="std-footer-right">
+                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
+                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
+                Ataşehir / İstanbul<br>
+                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
+                <a href="http://www.wside.com" target="_blank">www.wside.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-std">
+        <div class="std-header">
+            {{#if imgWside}}
+                <img src="data:image/png;base64,{{imgWside}}">
+            {{/if}}
+        </div>
+        <div class="content-body">
+            <div class="section-header">3. SALESFORCE TEKLİFİ</div>
+            
+            <div class="std-text">
+                <p>
+                    Belirtilen kapsama göre projenin yaklaşık .... bir çalışma sonucunda tamamlanması ve canlıya alınması 
+                    hedeflenmektedir.
+                </p>
+                <p>
+                    Proje içerisinde bulunan entegrasyon ve müşteri bağımlı noktalar, müşteri performansına göre proje 
+                    takviminde değişikliklere sebebiyet verebilir.
+                </p>
+            </div>
+
+            <div class="sub-header">KAPSAM DIŞI İŞLER</div>
+
+            <div class="std-text">
+                <p>
+                    Teklifimiz, yukarıdaki başlıklar dahilinde yapılacak olan çalışmaları kapsamaktadır. Bu kapsam, analiz 
+                    çalışması ile netleştirilecek olup, analizin onaylanması sonrasında, analiz kapsamı geçerli olacaktır. Proje 
+                    tamamlanana kadar, analiz kapsamı dışında yapılacak olan talepler, ek efor olarak değerlendirilecek.
+                </p>
+                <p>
+                    Salesforce lisans sınırları dışında kalan her türlü değişiklik, kapsamımız dışında yer almaktadır.
+                </p>
+            </div>
+        </div>
         <div class="std-footer">
             <div class="std-footer-left">
                 {{#if imgSalesforceLogo}}
