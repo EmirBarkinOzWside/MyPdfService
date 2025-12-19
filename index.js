@@ -70,6 +70,7 @@ app.post('/generate', async (req, res) => {
         await page.close();
 
         const pdfBase64 = pdfBuffer.toString('base64');
+        console.log("PDF başarıyla oluşturuldu ve gönderiliyor!");
         res.json({ status: 'Success', base64: pdfBase64 });
 
     } catch (error) {
