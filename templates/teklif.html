@@ -8,22 +8,41 @@
         @page { size: A4; margin: 0; }
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #fff; -webkit-print-color-adjust: exact; color: #333; }
         
-        /* ORTAK SINIFLAR */
+        /* 1. SABİT SAYFA STİLİ (Kapak, Mektup vb. için) */
         .page-std {
             width: 210mm;
-            height: 297mm;
-            padding: 20mm 20mm 10mm 20mm; /* Alt boşluk 10mm footer için */
+            height: 297mm; /* Sabit yükseklik */
+            padding: 20mm 20mm 10mm 20mm;
             box-sizing: border-box;
             background: white;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             break-before: page;
+            position: relative;
         }
+
+        /* 2. DİNAMİK SAYFA STİLİ (TABLOLAR İÇİN YENİ!) */
+        /* Bu stil, içerik uzadıkça sayfayı uzatır, üst üste binmeyi engeller */
+        .page-dynamic {
+            width: 210mm;
+            height: auto;       /* Yükseklik içeriğe göre değişsin */
+            min-height: 297mm;  /* En az bir A4 boyutu olsun */
+            padding: 20mm 20mm 10mm 20mm;
+            box-sizing: border-box;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            break-before: page;
+            position: relative;
+        }
+
+        /* HEADER & FOOTER */
         .std-header { width: 100%; display: flex; justify-content: flex-end; margin-bottom: 30px; }
         .std-header img { height: 40px; width: auto; }
         
-        .std-footer { width: 100%; display: flex; justify-content: space-between; align-items: flex-end; padding-top: 15px; border-top: 1px solid #eee; }
+        .std-footer { width: 100%; display: flex; justify-content: space-between; align-items: flex-end; padding-top: 15px; border-top: 1px solid #eee; margin-top: auto; }
         .std-footer-left img { height: 40px; width: auto; }
         .std-footer-right { text-align: right; font-size: 10px; color: #777; line-height: 1.4; }
         .std-footer-right a { color: #E31837; text-decoration: none; font-weight: bold; }
@@ -41,15 +60,6 @@
         .wside-logo-cover { height: 55px; width: auto; }
         .vertical-line { width: 2px; height: 65px; background-color: #E31837; }
         .client-name { font-size: 26px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; max-width: 350px; line-height: 1.2; }
-
-        /* ARKA KAPAK (KAPANIŞ) ÖZEL */
-        .back-cover-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-bottom: 50px; }
-        .thank-you-text { font-size: 32px; font-weight: 800; color: #333; letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase; }
-        .wside-logo-large { height: 70px; width: auto; margin-bottom: 40px; }
-        .contact-box { border-top: 2px solid #E31837; border-bottom: 2px solid #E31837; padding: 30px 0; width: 80%; }
-        .contact-item { margin-bottom: 10px; font-size: 14px; color: #555; }
-        .contact-item strong { color: #333; display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
-        .contact-item a { color: #E31837; text-decoration: none; font-weight: 600; font-size: 16px; }
 
         /* DİĞER İÇERİK STİLLERİ */
         .content-body { flex-grow: 1; padding-top: 10px; }
@@ -109,15 +119,20 @@
         /* --- EXCEL TABLOSU STİLİ --- */
         .excel-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
         .excel-table th, .excel-table td { border: 1px solid #ccc; padding: 8px; vertical-align: top; }
-        /* İlk satır (Başlık) Kırmızı */
         .excel-table tr:first-child td { background-color: #E31837; color: white; font-weight: bold; text-align: center; }
-        /* Zebra satırlar */
         .excel-table tr:nth-child(even) { background-color: #f9f9f9; }
+        
+        .filled-cell { background-color: #f0f0f0 !important; }
 
-        /* Dolu hücreler için gri arka plan sınıfı */
-        .filled-cell {
-        background-color: #f0f0f0 !important;
-        }
+        /* ARKA KAPAK */
+        .back-cover-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-bottom: 50px; }
+        .thank-you-text { font-size: 32px; font-weight: 800; color: #333; letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase; }
+        .wside-logo-large { height: 70px; width: auto; margin-bottom: 40px; }
+        .contact-box { border-top: 2px solid #E31837; border-bottom: 2px solid #E31837; padding: 30px 0; width: 80%; }
+        .contact-item { margin-bottom: 10px; font-size: 14px; color: #555; }
+        .contact-item strong { color: #333; display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+        .contact-item a { color: #E31837; text-decoration: none; font-weight: 600; font-size: 16px; }
+
     </style>
 </head>
 <body>
@@ -214,7 +229,7 @@
         </div>
     </div>
 
-    <div class="page-std">
+    <div class="page-dynamic">
         <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
         <div class="content-body">
             <div class="section-header">3. SALESFORCE PROJE KAPSAM & TEKLİFİ</div>
@@ -283,7 +298,7 @@
         </div>
     </div>
 
-    <div class="page-std">
+    <div class="page-dynamic">
         <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
         <div class="content-body">
             <div class="section-header">TEKLİF</div>
@@ -370,16 +385,10 @@
         </div>
         <div class="std-footer">
             <div class="std-footer-left">
-                {{#if imgSalesforceLogo}}
-                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
-                {{/if}}
+                {{#if imgSalesforceLogo}}<img src="data:image/png;base64,{{imgSalesforceLogo}}">{{/if}}
             </div>
             <div class="std-footer-right">
-                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
-                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
-                Ataşehir / İstanbul<br>
-                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
+                Atatürk Mahallesi...<br><a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br><a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
             </div>
         </div>
     </div>
@@ -388,7 +397,6 @@
         <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
         <div class="content-body">
             <div class="section-header">TEKLİF ŞARTLARI</div>
-            
             <ul class="terms-list">
                 <li>Teklifimiz <strong>{{musteriIsmi}}</strong> için özel olarak hazırlanmış olup herhangi bir üçüncü taraf ile paylaşılamaz.</li>
                 <li>Teklifimiz <strong>{{gecerlilikTarihi}}</strong> tarihine kadar geçerlidir.</li>
@@ -403,65 +411,28 @@
                 <li>Kapsam dışı işler ek geliştirme olarak kabul edilecek olup; 500 USD+KDV Adam/Gün bedeli üzerinden fatura edilecektir.</li>
                 <li>Salesforce kullanım şartlarına <a href="https://www.salesforce.com/en-us/wp-content/uploads/sites/4/documents/legal/Salesforce_MSA.pdf" target="_blank">buradan</a> ulaşabilirsiniz.</li>
             </ul>
-
-            <div class="closing-text">
-                Teklifimizin tarafınızdan kabul göreceğini umar, iş birliğimizi devam ettirmeyi dileriz.
-            </div>
-
+            <div class="closing-text">Teklifimizin tarafınızdan kabul göreceğini umar, iş birliğimizi devam ettirmeyi dileriz.</div>
         </div>
         <div class="std-footer">
-            <div class="std-footer-left">
-                {{#if imgSalesforceLogo}}
-                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
-                {{/if}}
-            </div>
-            <div class="std-footer-right">
-                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
-                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
-                Ataşehir / İstanbul<br>
-                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
-            </div>
+            <div class="std-footer-left">{{#if imgSalesforceLogo}}<img src="data:image/png;base64,{{imgSalesforceLogo}}">{{/if}}</div>
+            <div class="std-footer-right">Atatürk Mahallesi...<br><a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br><a href="https://www.wside.com.tr" target="_blank">www.wside.com</a></div>
         </div>
     </div>
 
     <div class="page-cover">
         <div class="top-section">
-            {{#if imgSalesforcePartner}}
-                <img src="data:image/png;base64,{{imgSalesforcePartner}}" class="sf-badge">
-            {{/if}}
+            {{#if imgSalesforcePartner}}<img src="data:image/png;base64,{{imgSalesforcePartner}}" class="sf-badge">{{/if}}
         </div>
-
         <div class="back-cover-content">
             <div class="thank-you-text">TEŞEKKÜRLER</div>
-            
-            {{#if imgWside}}
-                <img src="data:image/png;base64,{{imgWside}}" class="wside-logo-large">
-            {{/if}}
-
+            {{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}" class="wside-logo-large">{{/if}}
             <div class="contact-box">
-                <div class="contact-item">
-                    <strong>Adres</strong>
-                    Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
-                    Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
-                    Ataşehir / İstanbul
-                </div>
-                <div class="contact-item">
-                    <strong>E-Posta</strong>
-                    <a href="mailto:info@wside.com.tr">info@wside.com.tr</a>
-                </div>
-                <div class="contact-item">
-                    <strong>Web</strong>
-                    <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
-                </div>
+                <div class="contact-item"><strong>Adres</strong>Atatürk Mahallesi...</div>
+                <div class="contact-item"><strong>E-Posta</strong><a href="mailto:info@wside.com.tr">info@wside.com.tr</a></div>
+                <div class="contact-item"><strong>Web</strong><a href="https://www.wside.com.tr" target="_blank">www.wside.com</a></div>
             </div>
         </div>
-
-        <div class="footer-section-cover">
-            {{#if imgFooter}}
-                <img src="data:image/png;base64,{{imgFooter}}" class="footer-img">
-            {{/if}}
-        </div>
+        <div class="footer-section-cover">{{#if imgFooter}}<img src="data:image/png;base64,{{imgFooter}}" class="footer-img">{{/if}}</div>
     </div>
 
 </body>
