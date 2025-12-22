@@ -114,6 +114,13 @@
         .total-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 14px; color: #444; }
         .total-row.grand-total { margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 18px; font-weight: 800; color: #E31837; text-transform: uppercase; letter-spacing: 0.5px; }
 
+        /* --- EXCEL TABLOSU STİLİ (EKLENDİ) --- */
+        .excel-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
+        .excel-table th, .excel-table td { border: 1px solid #ccc; padding: 8px; vertical-align: top; }
+        /* İlk satır (Başlık) Kırmızı */
+        .excel-table tr:first-child td { background-color: #E31837; color: white; font-weight: bold; text-align: center; }
+        /* Zebra satırlar */
+        .excel-table tr:nth-child(even) { background-color: #f9f9f9; }
     </style>
 </head>
 <body>
@@ -331,17 +338,26 @@
             {{/if}}
         </div>
         <div class="content-body">
-            <div class="section-header">3. SALESFORCE TEKLİFİ</div>
+            <div class="section-header">3. SALESFORCE PROJE KAPSAM & TEKLİFİ</div>
+            
+            <div class="sub-header">KAPSAM;</div>
             <div class="std-text">
-                <p>
-                    Belirtilen kapsama göre projenin yaklaşık .... bir çalışma sonucunda tamamlanması ve canlıya alınması 
-                    hedeflenmektedir.
-                </p>
-                <p>
-                    Proje içerisinde bulunan entegrasyon ve müşteri bağımlı noktalar, müşteri performansına göre proje 
-                    takviminde değişikliklere sebebiyet verebilir.
-                </p>
+                <p>Müşteri ile yapılan görüşmelere istinaden oluşturulan proje kapsamı aşağıdaki şekilde belirtilmiştir:</p>
             </div>
+
+            {{#if excelRows}}
+            <table class="excel-table">
+                {{#each excelRows}}
+                <tr>
+                    {{#each this}}
+                    <td>{{this}}</td>
+                    {{/each}}
+                </tr>
+                {{/each}}
+            </table>
+            {{else}}
+            <p style="color:red; font-size:12px;">* Kapsam tablosu bulunamadı.</p>
+            {{/if}}
             <div class="sub-header">KAPSAM DIŞI İŞLER</div>
             <div class="std-text">
                 <p>
