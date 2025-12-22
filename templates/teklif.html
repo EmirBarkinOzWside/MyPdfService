@@ -10,71 +10,77 @@
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #fff; -webkit-print-color-adjust: exact; color: #333; }
         
         /* 1. SABİT SAYFA STİLİ (Mektup, Şartlar vb.) */
-        /* Header ve Footer ABSOLUTE ile çivilenir */
         .page-std {
             width: 210mm;
             height: 297mm;
             position: relative; /* Absolute elemanlar buna göre hizalanır */
             background: white;
             break-before: page;
-            overflow: hidden; /* Taşmaları gizle */
+            overflow: hidden;
         }
 
         /* 2. UZUN TABLO SAYFASI STİLİ */
-        /* Table yapısı kullanır, paddingler header/footer boşluğunu taklit eder */
         .page-long-content {
             width: 210mm;
             min-height: 297mm;
             background: white;
             break-before: page;
             display: block;
-            /* Header ve Footer için boşluk bırakmıyoruz, tablonun thead/tfoot'u bunu yapacak */
             padding: 0; 
         }
 
-        /* --- HEADER & FOOTER (MUTLAK KONUMLANDIRMA) --- */
-        /* Bu sınıflar sadece .page-std içinde kullanılır */
+        /* --- HEADER & FOOTER (MUTLAK KONUMLANDIRMA - STD SAYFALAR İÇİN) --- */
         .abs-header {
             position: absolute;
-            top: 20mm;      /* Tepeden sabit boşluk */
-            left: 25mm;     /* Soldan sabit boşluk */
-            right: 25mm;    /* Sağdan sabit boşluk */
-            height: 40px;   /* Header yüksekliği */
+            top: 20mm;
+            left: 25mm;
+            right: 25mm;
+            height: 40px;
             display: flex;
             justify-content: flex-end;
         }
         .abs-header img { height: 40px; width: auto; }
 
+        /* GÜNCELLENDİ: Sabit yükseklik kaldırıldı, padding artırıldı */
         .abs-footer {
             position: absolute;
-            bottom: 15mm;   /* Alttan sabit boşluk */
+            bottom: 15mm;   /* Sayfa altından 15mm yukarıda başla */
             left: 25mm;
             right: 25mm;
-            height: 60px;   /* Footer yüksekliği tahmini */
+            /* height: 60px;  <-- KALDIRILDI: İçeriğe göre esnesin */
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             border-top: 1px solid #eee;
-            padding-top: 10px;
+            padding-top: 15px; /* Çizgi ile yazı arası boşluk artırıldı */
+            background: white;
         }
         .abs-footer-left img { height: 40px; width: auto; }
         .abs-footer-right { text-align: right; font-size: 10px; color: #777; line-height: 1.4; }
         .abs-footer-right a { color: #E31837; text-decoration: none; font-weight: bold; }
 
         /* --- İÇERİK ALANI (SABİT SAYFALAR İÇİN) --- */
-        /* Header ve Footer'ın üstüne binmemesi için margin veriyoruz */
+        /* GÜNCELLENDİ: Alt margin artırıldı */
         .content-abs-wrapper {
-            margin-top: 50mm;    /* Header payı (20mm top + header height + boşluk) */
-            margin-bottom: 40mm; /* Footer payı */
+            margin-top: 50mm;
+            margin-bottom: 50mm; /* Footer'a çarpmaması için güvenlik payı artırıldı */
             margin-left: 25mm;
             margin-right: 25mm;
         }
 
         /* --- TABLO SAYFASI İÇİN HEADER/FOOTER AYARLARI --- */
-        /* Tablonun Header hücresi, ABS header ile aynı boşluğu yaratmalı */
+        /* Tabloyu sayfa yüksekliğine yaymak için */
+        .long-content-wrapper { 
+            width: 100%; 
+            min-height: 297mm; /* Tablo en az bir sayfa boyu olsun */
+            border-collapse: collapse; 
+        }
+
+        /* Header Hücresi */
         .table-header-cell {
-            height: 50mm; /* 20mm boşluk + Header yüksekliği + Biraz alt boşluk */
-            padding-top: 20mm; /* Sayfa başından header'a kadar olan boşluk */
+            /* height: 50mm; <-- Kaldırıldı, padding ile yönetilecek */
+            padding-top: 20mm;
+            padding-bottom: 10px;
             padding-left: 25mm;
             padding-right: 25mm;
             vertical-align: top;
@@ -83,34 +89,38 @@
             width: 100%;
             display: flex;
             justify-content: flex-end;
+            height: 40px; /* ABS header ile aynı yükseklik */
         }
         .table-header-content img { height: 40px; width: auto; }
 
-        /* Tablonun Footer hücresi */
+        /* GÜNCELLENDİ: Footer Hücresi */
         .table-footer-cell {
-            height: 30mm;
+            /* height: 30mm; <-- KALDIRILDI */
             padding-left: 25mm;
             padding-right: 25mm;
             vertical-align: bottom;
-            padding-bottom: 15mm; /* Sayfa sonundan footer'a kadar olan boşluk */
+            padding-bottom: 15mm; /* Sayfa sonundan 15mm boşluk */
         }
-        /* Footer içeriği */
+        /* GÜNCELLENDİ: Footer İçeriği */
         .table-footer-content {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             border-top: 1px solid #eee;
-            padding-top: 10px;
+            padding-top: 15px; /* Çizgi ile yazı arası boşluk */
+            margin-top: 30px;  /* İçerikten uzaklaşması için */
         }
 
-        /* Tablo İçerik Gövdesi */
+        /* GÜNCELLENDİ: Tablo İçerik Gövdesi */
+        /* height: 100% vererek boş alanı doldurmasını ve footer'ı itmesini sağlıyoruz */
         .table-body-cell {
-            padding: 0 25mm 20px 25mm; /* Yanlardan 25mm boşluk */
+            padding: 20px 25mm 20px 25mm;
             vertical-align: top;
+            height: 100%; /* Sihirli dokunuş: Boşluğu doldur */
         }
 
-        /* --- DİĞER STİLLER --- */
+        /* --- DİĞER STİLLER (Aynı) --- */
         .page-cover { width: 210mm; height: 297mm; position: relative; display: flex; flex-direction: column; justify-content: space-between; background: white; margin-bottom: 0; }
         .top-section { width: 100%; text-align: center; padding-top: 40px; }
         .sf-badge { width: 140px; height: auto; }
@@ -122,7 +132,6 @@
         .footer-section-cover { width: 100%; line-height: 0; }
         .footer-img { width: 100%; height: auto; display: block; }
         
-        /* ARKA KAPAK */
         .back-cover-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-bottom: 50px; }
         .thank-you-text { font-size: 32px; font-weight: 800; color: #333; letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase; }
         .wside-logo-large { height: 70px; width: auto; margin-bottom: 40px; }
@@ -174,17 +183,14 @@
         .terms-list-page li { margin-bottom: 10px; }
         .closing-text { margin-top: 30px; font-size: 14px; font-weight: 600; color: #333; }
 
-        /* Excel Tablo Stili */
         .excel-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
         .excel-table th, .excel-table td { border: 1px solid #ccc; padding: 8px; vertical-align: top; }
         .excel-table tr:first-child td { background-color: #E31837; color: white; font-weight: bold; text-align: center; }
         .excel-table tr:nth-child(even) { background-color: #f9f9f9; }
         .filled-cell { background-color: #E31837 !important; color: transparent !important; }
 
-        /* Sayfa Bölünme Kontrolü */
         .keep-together { page-break-inside: avoid; break-inside: avoid; margin-top: 20px; }
 
-        /* Uzun İçerik Tablosu (Sayfalama için) */
         .long-content-wrapper { width: 100%; border-collapse: collapse; }
         .long-content-wrapper thead { display: table-header-group; }
         .long-content-wrapper tfoot { display: table-footer-group; }
