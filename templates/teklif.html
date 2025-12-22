@@ -22,12 +22,11 @@
             position: relative;
         }
 
-        /* 2. DİNAMİK SAYFA STİLİ (TABLOLAR İÇİN YENİ!) */
-        /* Bu stil, içerik uzadıkça sayfayı uzatır, üst üste binmeyi engeller */
+        /* 2. DİNAMİK SAYFA STİLİ (TABLOLAR İÇİN) */
         .page-dynamic {
             width: 210mm;
-            height: auto;       /* Yükseklik içeriğe göre değişsin */
-            min-height: 297mm;  /* En az bir A4 boyutu olsun */
+            height: auto;       /* Yükseklik otomatik */
+            min-height: 297mm;  /* En az A4 kadar */
             padding: 20mm 20mm 10mm 20mm;
             box-sizing: border-box;
             background: white;
@@ -42,7 +41,7 @@
         .std-header { width: 100%; display: flex; justify-content: flex-end; margin-bottom: 30px; }
         .std-header img { height: 40px; width: auto; }
         
-        .std-footer { width: 100%; display: flex; justify-content: space-between; align-items: flex-end; padding-top: 15px; border-top: 1px solid #eee; margin-top: auto; }
+        .std-footer { width: 100%; display: flex; justify-content: space-between; align-items: flex-end; padding-top: 15px; border-top: 1px solid #eee; margin-top: 30px; }
         .std-footer-left img { height: 40px; width: auto; }
         .std-footer-right { text-align: right; font-size: 10px; color: #777; line-height: 1.4; }
         .std-footer-right a { color: #E31837; text-decoration: none; font-weight: bold; }
@@ -116,13 +115,17 @@
         .total-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 14px; color: #444; }
         .total-row.grand-total { margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 18px; font-weight: 800; color: #E31837; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* --- EXCEL TABLOSU STİLİ --- */
+        /* EXCEL TABLOSU STİLİ */
         .excel-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
         .excel-table th, .excel-table td { border: 1px solid #ccc; padding: 8px; vertical-align: top; }
         .excel-table tr:first-child td { background-color: #E31837; color: white; font-weight: bold; text-align: center; }
         .excel-table tr:nth-child(even) { background-color: #f9f9f9; }
         
-        .filled-cell { background-color: #f0f0f0 !important; }
+        /* GİZLİ HÜCRE İÇERİĞİ (X) İÇİN SINIF */
+        .filled-cell { 
+            background-color: #f0f0f0 !important; /* Gri arka plan */
+            color: transparent; /* İçindeki yazıyı görünmez yap */
+        }
 
         /* ARKA KAPAK */
         .back-cover-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-bottom: 50px; }
@@ -204,7 +207,15 @@
                 <tr><td class="info-label">ŞİRKET / İŞ BİRİMİ</td><td class="info-value">Wside Teknoloji ve Yazılım / Salesforce</td></tr>
             </table>
             <div class="section-header">GİZLİLİK</div>
-            <div class="privacy-text"><p>Bu doküman Wside Teknoloji ve Yazılım A.Ş. ürün ve hizmetlerine özgü gizli bilgiler içermektedir...</p></div>
+            <div class="privacy-text">
+                <p>
+                    Bu doküman Wside Teknoloji ve Yazılım A.Ş. ürün ve hizmetlerine özgü gizli bilgiler içermektedir. 
+                    <strong>{{musteriIsmi}}</strong> bu dokümandaki bilgileri kurum dışına aktarılmayacağını ve bu dokümanı 
+                    değerlendirme amaçlı kullanım dışında kullanmayacağını kabul etmiş sayılır. Bu dokümanın olumlu 
+                    değerlendirilmesi ve Wside Danışmanlık ile sözleşme imzalanması durumunda, buradaki sınırlamalar 
+                    geçerliliğini yitirecek ve gizlilik koşulları sözleşme tarafından belirlenecektir.
+                </p>
+            </div>
         </div>
         <div class="std-footer">
             <div class="std-footer-left">{{#if imgSalesforceLogo}}<img src="data:image/png;base64,{{imgSalesforceLogo}}">{{/if}}</div>
@@ -256,7 +267,11 @@
             {{/if}}
 
             {{#if tpExcelRows}}
-            <div class="sub-header" style="margin-top:20px; margin-bottom:5px;">PROJE TAKVİMİ (TP)</div>
+            <div class="sub-header" style="margin-top:20px; margin-bottom:5px;">PROJE PLANI;</div>
+            <div class="std-text">
+                <p>Belirtilen kapsama göre projenin, yaklaşık 16 haftalık bir çalışma sonucunda tamamlanması ve canlıya alınması hedeflenmektedir.</p>
+                <p>Proje içerisinde bulunan entegrasyon ve müşteri bağımlı noktalar, müşteri performansına göre proje takviminde değişikliklere sebebiyet verebilir.</p>
+            </div>
             <div style="margin-bottom: 20px;">
                 <table class="excel-table" style="font-size: 10px; text-align: center;">
                     {{#each tpExcelRows}}
@@ -267,12 +282,14 @@
                     </tr>
                     {{/each}}
                 </table>
-                <p style="font-size:9px; color:#666; margin-top:2px;">* Tablodaki dolu alanlar proje süreçlerini temsil etmektedir.</p>
             </div>
             {{/if}}
 
             {{#if teamExcelRows}}
-            <div class="sub-header" style="margin-top:20px; margin-bottom:5px;">PROJE EKİBİ</div>
+            <div class="sub-header" style="margin-top:20px; margin-bottom:5px;">PROJE EKİBİ;</div>
+            <div class="std-text">
+                <p>Belirtilen kapsam ve proje talebi için oluşturulacak Wside Proje ekibi aşağıdaki şekilde belirtilmiştir:</p>
+            </div>
             <div style="margin-bottom: 20px;">
                 <table class="excel-table" style="width: 60%;">
                     {{#each teamExcelRows}}
@@ -302,94 +319,43 @@
         <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
         <div class="content-body">
             <div class="section-header">TEKLİF</div>
-            
-            <div class="proposal-intro">
-                <strong>{{musteriIsmi}}</strong> için öngörülen Salesforce lisans bedelleri aşağıdaki şekilde belirtilmiştir:
-            </div>
+            <div class="proposal-intro"><strong>{{musteriIsmi}}</strong> için öngörülen Salesforce lisans bedelleri aşağıdaki şekilde belirtilmiştir:</div>
 
             <div class="license-header">Salesforce Lisans</div>
             <table class="license-table">
-                <thead>
-                    <tr>
-                        <th style="width: 35%;">Lisans Tipi ve Versiyonu</th>
-                        <th style="width: 10%;">Adet</th>
-                        <th style="width: 20%;">Kullanıcı / Yıl</th>
-                        <th style="width: 15%;">Kullanıcı / Ay</th>
-                        <th style="width: 20%;">Yıllık Tutar</th>
-                    </tr>
-                </thead>
+                <thead><tr><th style="width: 35%;">Lisans Tipi ve Versiyonu</th><th style="width: 10%;">Adet</th><th style="width: 20%;">Kullanıcı / Yıl</th><th style="width: 15%;">Kullanıcı / Ay</th><th style="width: 20%;">Yıllık Tutar</th></tr></thead>
                 <tbody>
                     {{#each urunler}}
-                    <tr>
-                        <td>{{urunAdi}}</td>
-                        <td>{{miktar}}</td>
-                        <td>{{birimFiyatYillik}} {{../paraBirimi}}</td>
-                        <td>{{birimFiyat}} {{../paraBirimi}}</td>
-                        <td>{{toplamFiyat}} {{../paraBirimi}}</td>
-                    </tr>
+                    <tr><td>{{urunAdi}}</td><td>{{miktar}}</td><td>{{birimFiyatYillik}} {{../paraBirimi}}</td><td>{{birimFiyat}} {{../paraBirimi}}</td><td>{{toplamFiyat}} {{../paraBirimi}}</td></tr>
                     {{/each}}
                 </tbody>
             </table>
 
             <div class="totals-container">
                 <div class="totals-box">
-                    <div class="total-row">
-                        <span>İndirim Öncesi Toplam:</span>
-                        <span>{{araToplam}} {{paraBirimi}}</span>
-                    </div>
-                    <div class="total-row">
-                        <span>İndirim:</span>
-                        <span>{{toplamIndirim}} {{paraBirimi}}</span>
-                    </div>
-                    <div class="total-row grand-total">
-                        <span>GENEL TOPLAM:</span>
-                        <span>{{genelToplam}} {{paraBirimi}}</span>
-                    </div>
+                    <div class="total-row"><span>İndirim Öncesi Toplam:</span><span>{{araToplam}} {{paraBirimi}}</span></div>
+                    <div class="total-row"><span>Quote Discount:</span><span>{{toplamIndirim}} {{paraBirimi}}</span></div>
+                    <div class="total-row grand-total"><span>GENEL TOPLAM:</span><span>{{genelToplam}} {{paraBirimi}}</span></div>
                 </div>
             </div>
 
             <div class="license-header">Şartlar</div>
-            <div class="conditions-box">
-                <ul class="conditions-list">
-                    <li>Lisans faturalamaları yıllık, peşin olarak gerçekleştirilecektir.</li>
-                    <li>Fiyatlar 24 aylık ve daha uzun süreli sözleşmeler için geçerlidir.</li>
-                    <li>Fiyatlar Salesforce son onayına tabidir.</li>
-                </ul>
-            </div>
+            <div class="conditions-box"><ul class="conditions-list"><li>Lisans faturalamaları yıllık, peşin olarak gerçekleştirilecektir.</li><li>Fiyatlar 24 aylık ve daha uzun süreli sözleşmeler için geçerlidir.</li><li>Fiyatlar Salesforce son onayına tabidir.</li></ul></div>
 
             <div class="license-header">Fatura Planı</div>
             <table class="invoice-table">
-                <thead>
-                    <tr>
-                        <th>Fatura Planı</th>
-                        <th>Vade</th>
-                        <th>Ödeme Tarihi</th>
-                        <th>Tutar</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Fatura Planı</th><th>Vade</th><th>Ödeme Tarihi</th><th>Tutar</th></tr></thead>
                 <tbody>
                     {{#each faturaPlanlari}}
-                    <tr>
-                        <td>{{faturaTarihi}}</td>
-                        <td>{{vade}}</td>
-                        <td>{{odemeTarihi}}</td>
-                        <td>{{tutar}} {{paraBirimi}}</td>
-                    </tr>
+                    <tr><td>{{faturaTarihi}}</td><td>{{vade}}</td><td>{{odemeTarihi}}</td><td>{{tutar}} {{paraBirimi}}</td></tr>
                     {{/each}}
                 </tbody>
             </table>
-            <div class="invoice-total-row">
-                TOPLAM: {{faturaGenelToplam}} {{paraBirimi}}
-            </div>
-
+            <div class="invoice-total-row">TOPLAM: {{faturaGenelToplam}} {{paraBirimi}}</div>
         </div>
         <div class="std-footer">
-            <div class="std-footer-left">
-                {{#if imgSalesforceLogo}}<img src="data:image/png;base64,{{imgSalesforceLogo}}">{{/if}}
-            </div>
-            <div class="std-footer-right">
-                Atatürk Mahallesi...<br><a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br><a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
-            </div>
+            <div class="std-footer-left">{{#if imgSalesforceLogo}}<img src="data:image/png;base64,{{imgSalesforceLogo}}">{{/if}}</div>
+            <div class="std-footer-right">Atatürk Mahallesi...<br><a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br><a href="https://www.wside.com.tr" target="_blank">www.wside.com</a></div>
         </div>
     </div>
 
