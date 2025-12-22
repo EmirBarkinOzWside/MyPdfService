@@ -180,12 +180,14 @@
             {{#if imgSalesforcePartner}}<img src="data:image/png;base64,{{imgSalesforcePartner}}" class="sf-badge">{{/if}}
         </div>
         <div class="center-section">
-            <div class="cover-title">{{quoteSubject}}</div>
+            <div class="cover-title">{{konu}}</div>
             <div class="logo-container">
                 {{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}" class="wside-logo-cover">{{/if}}
+                
                 <div class="vertical-line"></div>
+                
                 {{#if imgCustomerLogo}}
-                    <apex:outputText value="{{imgCustomerLogo}}" class="customer-logo-cover"/>
+                    <img src="data:image/png;base64,{{imgCustomerLogo}}" class="customer-logo-cover">
                 {{else}}
                     <div class="client-name">{{musteriIsmi}}</div>
                 {{/if}}
