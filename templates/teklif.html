@@ -43,15 +43,7 @@
         .client-name { font-size: 26px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; max-width: 350px; line-height: 1.2; }
 
         /* ARKA KAPAK (KAPANIŞ) ÖZEL */
-        .back-cover-content { 
-            flex-grow: 1; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            text-align: center; 
-            padding-bottom: 50px;
-        }
+        .back-cover-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-bottom: 50px; }
         .thank-you-text { font-size: 32px; font-weight: 800; color: #333; letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase; }
         .wside-logo-large { height: 70px; width: auto; margin-bottom: 40px; }
         .contact-box { border-top: 2px solid #E31837; border-bottom: 2px solid #E31837; padding: 30px 0; width: 80%; }
@@ -114,50 +106,42 @@
         .total-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 14px; color: #444; }
         .total-row.grand-total { margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 18px; font-weight: 800; color: #E31837; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* --- EXCEL TABLOSU STİLİ (EKLENDİ) --- */
+        /* --- EXCEL TABLOSU STİLİ --- */
         .excel-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; }
         .excel-table th, .excel-table td { border: 1px solid #ccc; padding: 8px; vertical-align: top; }
         /* İlk satır (Başlık) Kırmızı */
         .excel-table tr:first-child td { background-color: #E31837; color: white; font-weight: bold; text-align: center; }
         /* Zebra satırlar */
         .excel-table tr:nth-child(even) { background-color: #f9f9f9; }
+
+        /* Dolu hücreler için gri arka plan sınıfı */
+        .filled-cell {
+        background-color: #f0f0f0 !important;
+        }
     </style>
 </head>
 <body>
 
     <div class="page-cover">
         <div class="top-section">
-            {{#if imgSalesforcePartner}}
-                <img src="data:image/png;base64,{{imgSalesforcePartner}}" class="sf-badge">
-            {{/if}}
+            {{#if imgSalesforcePartner}}<img src="data:image/png;base64,{{imgSalesforcePartner}}" class="sf-badge">{{/if}}
         </div>
         <div class="center-section">
             <div class="logo-container">
-                {{#if imgWside}}
-                    <img src="data:image/png;base64,{{imgWside}}" class="wside-logo-cover">
-                {{/if}}
+                {{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}" class="wside-logo-cover">{{/if}}
                 <div class="vertical-line"></div>
                 <div class="client-name">{{musteriIsmi}}</div>
             </div>
         </div>
         <div class="footer-section-cover">
-            {{#if imgFooter}}
-                <img src="data:image/png;base64,{{imgFooter}}" class="footer-img">
-            {{/if}}
+            {{#if imgFooter}}<img src="data:image/png;base64,{{imgFooter}}" class="footer-img">{{/if}}
         </div>
     </div>
 
     <div class="page-std">
-        <div class="std-header">
-            {{#if imgWside}}
-                <img src="data:image/png;base64,{{imgWside}}">
-            {{/if}}
-        </div>
+        <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
         <div class="letter-content">
-            <div class="letter-info">
-                <div>Konu : {{konu}}</div>
-                <div>Tarih : {{tarih}}</div>
-            </div>
+            <div class="letter-info"><div>Konu : {{konu}}</div><div>Tarih : {{tarih}}</div></div>
             <p><strong>Sayın İlgili,</strong></p>
             <div class="letter-body">
                 <p><strong>{{musteriIsmi}}</strong> olarak; Salesforce projeniz için Wside firmamızdan teklif isteyerek göstermiş olduğunuz ilgi ve güvene teşekkür ederiz.</p>
@@ -167,176 +151,71 @@
             </div>
             <p>Saygılarımızla,</p>
             <div class="signature-block">
-                <div class="signature-name">{{ownerName}}</div>
-                <span class="signature-title">Account Executive</span>
-                <div>{{ownerEmail}}</div>
-                <div>{{ownerPhone}}</div>
+                <div class="signature-name">{{ownerName}}</div><span class="signature-title">Account Executive</span>
+                <div>{{ownerEmail}}</div><div>{{ownerPhone}}</div>
             </div>
         </div>
         <div class="std-footer">
-            <div class="std-footer-left">
-                {{#if imgSalesforceLogo}}
-                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
-                {{/if}}
-            </div>
-            <div class="std-footer-right">
-                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
-                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
-                Ataşehir / İstanbul<br>
-                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
-            </div>
+            <div class="std-footer-left">{{#if imgSalesforceLogo}}<img src="data:image/png;base64,{{imgSalesforceLogo}}">{{/if}}</div>
+            <div class="std-footer-right">Atatürk Mahallesi...<br><a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br><a href="https://www.wside.com.tr" target="_blank">www.wside.com</a></div>
         </div>
     </div>
 
     <div class="page-std">
-        <div class="std-header">
-            {{#if imgWside}}
-                <img src="data:image/png;base64,{{imgWside}}">
-            {{/if}}
-        </div>
+        <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
         <div class="toc-content">
             <div class="toc-title">İÇİNDEKİLER</div>
             <ul class="toc-list">
-                <li class="toc-item">
-                    <span class="toc-number">1.</span>
-                    <span class="toc-text">BELGE BİLGİLERİ</span>
-                </li>
-                <li class="toc-item">
-                    <span class="toc-number">2.</span>
-                    <span class="toc-text">WSIDE ÖZLÜK BİLGİLERİ</span>
-                </li>
-                <li class="toc-item">
-                    <span class="toc-number">3.</span>
-                    <span class="toc-text">SALESFORCE PROJE KAPSAM ve TEKLİFİ</span>
-                </li>
+                <li class="toc-item"><span class="toc-number">1.</span><span class="toc-text">BELGE BİLGİLERİ</span></li>
+                <li class="toc-item"><span class="toc-number">2.</span><span class="toc-text">WSIDE ÖZLÜK BİLGİLERİ</span></li>
+                <li class="toc-item"><span class="toc-number">3.</span><span class="toc-text">SALESFORCE PROJE KAPSAM ve TEKLİFİ</span></li>
             </ul>
         </div>
         <div class="std-footer">
-            <div class="std-footer-left">
-                {{#if imgSalesforceLogo}}
-                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
-                {{/if}}
-            </div>
-            <div class="std-footer-right">
-                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
-                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
-                Ataşehir / İstanbul<br>
-                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
-            </div>
+            <div class="std-footer-left">{{#if imgSalesforceLogo}}<img src="data:image/png;base64,{{imgSalesforceLogo}}">{{/if}}</div>
+            <div class="std-footer-right">Atatürk Mahallesi...<br><a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br><a href="https://www.wside.com.tr" target="_blank">www.wside.com</a></div>
         </div>
     </div>
 
     <div class="page-std">
-        <div class="std-header">
-            {{#if imgWside}}
-                <img src="data:image/png;base64,{{imgWside}}">
-            {{/if}}
-        </div>
+        <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
         <div class="content-body">
             <div class="section-header">1. BELGE BİLGİLERİ</div>
             <table class="info-table">
-                <tr>
-                    <td class="info-label">HAZIRLAYAN</td>
-                    <td class="info-value">{{ownerName}}</td>
-                </tr>
-                <tr>
-                    <td class="info-label">YÜRÜRLÜK TARİHİ</td>
-                    <td class="info-value">{{olusturmaTarihi}}</td>
-                </tr>
-                <tr>
-                    <td class="info-label">TEKLİF GEÇERLİLİK SÜRESİ</td>
-                    <td class="info-value">{{gecerlilikTarihi}}</td>
-                </tr>
-                <tr>
-                    <td class="info-label">BELGE STATÜSÜ</td>
-                    <td class="info-value">Versiyon 1.0</td>
-                </tr>
-                <tr>
-                    <td class="info-label">ŞİRKET / İŞ BİRİMİ</td>
-                    <td class="info-value">Wside Teknoloji ve Yazılım / Salesforce</td>
-                </tr>
+                <tr><td class="info-label">HAZIRLAYAN</td><td class="info-value">{{ownerName}}</td></tr>
+                <tr><td class="info-label">YÜRÜRLÜK TARİHİ</td><td class="info-value">{{olusturmaTarihi}}</td></tr>
+                <tr><td class="info-label">TEKLİF GEÇERLİLİK SÜRESİ</td><td class="info-value">{{gecerlilikTarihi}}</td></tr>
+                <tr><td class="info-label">BELGE STATÜSÜ</td><td class="info-value">Versiyon 1.0</td></tr>
+                <tr><td class="info-label">ŞİRKET / İŞ BİRİMİ</td><td class="info-value">Wside Teknoloji ve Yazılım / Salesforce</td></tr>
             </table>
             <div class="section-header">GİZLİLİK</div>
-            <div class="privacy-text">
-                <p>
-                    Bu doküman Wside Teknoloji ve Yazılım A.Ş. ürün ve hizmetlerine özgü gizli bilgiler içermektedir. 
-                    <strong>{{musteriIsmi}}</strong> bu dokümandaki bilgileri kurum dışına aktarılmayacağını ve bu dokümanı 
-                    değerlendirme amaçlı kullanım dışında kullanmayacağını kabul etmiş sayılır. Bu dokümanın olumlu 
-                    değerlendirilmesi ve Wside Danışmanlık ile sözleşme imzalanması durumunda, buradaki sınırlamalar 
-                    geçerliliğini yitirecek ve gizlilik koşulları sözleşme tarafından belirlenecektir.
-                </p>
-            </div>
+            <div class="privacy-text"><p>Bu doküman Wside Teknoloji ve Yazılım A.Ş. ürün ve hizmetlerine özgü gizli bilgiler içermektedir...</p></div>
         </div>
         <div class="std-footer">
-            <div class="std-footer-left">
-                {{#if imgSalesforceLogo}}
-                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
-                {{/if}}
-            </div>
-            <div class="std-footer-right">
-                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
-                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
-                Ataşehir / İstanbul<br>
-                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
-            </div>
+            <div class="std-footer-left">{{#if imgSalesforceLogo}}<img src="data:image/png;base64,{{imgSalesforceLogo}}">{{/if}}</div>
+            <div class="std-footer-right">Atatürk Mahallesi...<br><a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br><a href="https://www.wside.com.tr" target="_blank">www.wside.com</a></div>
         </div>
     </div>
 
     <div class="page-std">
-        <div class="std-header">
-            {{#if imgWside}}
-                <img src="data:image/png;base64,{{imgWside}}">
-            {{/if}}
-        </div>
+        <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
         <div class="content-body">
             <div class="section-header">2. WSIDE ÖZLÜK BİLGİLERİ</div>
             <div class="sub-header">WSIDE HAKKINDA</div>
             <div class="std-text">
-                <p>
-                    2022 yılında WSIDE Teknoloji ve Yazılım A.Ş., grup şirketi olarak kurulan, geniş ve deneyimli SALESFORCE 
-                    danışmanlık kadrosu ile lisans, danışmanlık, eğitim ve destek hizmetleri sunmaktadır. Wside, kaliteli ve 
-                    sürdürülebilir çözümlerle Türkiye ve yurtdışında gerçekleştirdiği projelere yenilerini eklemeye devam ediyor.
-                </p>
-                <p>
-                    Wside Danışmanlık olarak; SALESFORCE ürünleri (Sales Cloud, Service Cloud, Experience Cloud, Field Service 
-                    Lightning, CPQ, Marketing Cloud, Platform vs.) ile birlikte çeşitli sektörlerdeki işletmelerin planlama ve 
-                    uygulama süreçlerine katkıda bulunuyoruz.
-                </p>
-                <p>
-                    Wside danışmanları, bugüne kadar özellikle uluslararası firmalarda başarıyla gerçekleştirdiği Salesforce CRM 
-                    projelerinde kazandığı farklı bakış açısının ışığında, tüm projelerde derin bir metodoloji bilgisi, kavramsal 
-                    sürece yönelik önemli bir birikim, dokümantasyon zenginliği ve farklı organizasyonlarla çalışma ve iletişim 
-                    kurma becerisi ile hizmet sunuyor. Salesforce çözümlerinde önemli ilklere imza atan Wside, projelerinde 
-                    henüz yaygınlaşmamış Salesforce fonksiyonalitelerini kullanarak müşterilerinin rekabette öne çıkmalarına 
-                    yardımcı oluyor.
-                </p>
+                <p>2022 yılında WSIDE Teknoloji ve Yazılım A.Ş., grup şirketi olarak kurulan, geniş ve deneyimli SALESFORCE danışmanlık kadrosu ile lisans, danışmanlık, eğitim ve destek hizmetleri sunmaktadır. Wside, kaliteli ve sürdürülebilir çözümlerle Türkiye ve yurtdışında gerçekleştirdiği projelere yenilerini eklemeye devam ediyor.</p>
+                <p>Wside Danışmanlık olarak; SALESFORCE ürünleri (Sales Cloud, Service Cloud, Experience Cloud, Field Service Lightning, CPQ, Marketing Cloud, Platform vs.) ile birlikte çeşitli sektörlerdeki işletmelerin planlama ve uygulama süreçlerine katkıda bulunuyoruz.</p>
+                <p>Wside danışmanları, bugüne kadar özellikle uluslararası firmalarda başarıyla gerçekleştirdiği Salesforce CRM projelerinde kazandığı farklı bakış açısının ışığında, tüm projelerde derin bir metodoloji bilgisi, kavramsal sürece yönelik önemli bir birikim, dokümantasyon zenginliği ve farklı organizasyonlarla çalışma ve iletişim kurma becerisi ile hizmet sunuyor.</p>
             </div>
         </div>
         <div class="std-footer">
-            <div class="std-footer-left">
-                {{#if imgSalesforceLogo}}
-                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
-                {{/if}}
-            </div>
-            <div class="std-footer-right">
-                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
-                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
-                Ataşehir / İstanbul<br>
-                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
-            </div>
+            <div class="std-footer-left">{{#if imgSalesforceLogo}}<img src="data:image/png;base64,{{imgSalesforceLogo}}">{{/if}}</div>
+            <div class="std-footer-right">Atatürk Mahallesi...<br><a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br><a href="https://www.wside.com.tr" target="_blank">www.wside.com</a></div>
         </div>
     </div>
 
     <div class="page-std">
-        <div class="std-header">
-            {{#if imgWside}}
-                <img src="data:image/png;base64,{{imgWside}}">
-            {{/if}}
-        </div>
+        <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
         <div class="content-body">
             <div class="section-header">3. SALESFORCE PROJE KAPSAM & TEKLİFİ</div>
             
@@ -346,52 +225,66 @@
             </div>
 
             {{#if excelRows}}
-            <table class="excel-table">
-                {{#each excelRows}}
-                <tr>
-                    {{#each this}}
-                    <td>{{this}}</td>
+            <div style="margin-bottom: 20px;">
+                <table class="excel-table">
+                    {{#each excelRows}}
+                    <tr>
+                        {{#each this}}
+                        <td>{{this}}</td>
+                        {{/each}}
+                    </tr>
                     {{/each}}
-                </tr>
-                {{/each}}
-            </table>
+                </table>
+            </div>
             {{else}}
-            <p style="color:red; font-size:12px;">* Kapsam tablosu bulunamadı.</p>
+            <p style="color:#999; font-style:italic; font-size:12px; margin-bottom:20px;">(Kapsam tablosu bulunamadı)</p>
             {{/if}}
-            <div class="sub-header">KAPSAM DIŞI İŞLER</div>
+
+            {{#if tpExcelRows}}
+            <div class="sub-header" style="margin-top:20px; margin-bottom:5px;">PROJE TAKVİMİ (TP)</div>
+            <div style="margin-bottom: 20px;">
+                <table class="excel-table" style="font-size: 10px; text-align: center;">
+                    {{#each tpExcelRows}}
+                    <tr>
+                        {{#each this}}
+                        <td class="{{#if this}}filled-cell{{/if}}">{{this}}</td>
+                        {{/each}}
+                    </tr>
+                    {{/each}}
+                </table>
+                <p style="font-size:9px; color:#666; margin-top:2px;">* Tablodaki dolu alanlar proje süreçlerini temsil etmektedir.</p>
+            </div>
+            {{/if}}
+
+            {{#if teamExcelRows}}
+            <div class="sub-header" style="margin-top:20px; margin-bottom:5px;">PROJE EKİBİ</div>
+            <div style="margin-bottom: 20px;">
+                <table class="excel-table" style="width: 60%;">
+                    {{#each teamExcelRows}}
+                    <tr>
+                        {{#each this}}
+                        <td style="text-align: left;">{{this}}</td>
+                        {{/each}}
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
+            {{/if}}
+
+            <div class="sub-header" style="margin-top:30px;">KAPSAM DIŞI İŞLER</div>
             <div class="std-text">
-                <p>
-                    Teklifimiz, yukarıdaki başlıklar dahilinde yapılacak olan çalışmaları kapsamaktadır. Bu kapsam, analiz 
-                    çalışması ile netleştirilecek olup, analizin onaylanması sonrasında, analiz kapsamı geçerli olacaktır. Proje 
-                    tamamlanana kadar, analiz kapsamı dışında yapılacak olan talepler, ek efor olarak değerlendirilecek.
-                </p>
-                <p>
-                    Salesforce lisans sınırları dışında kalan her türlü değişiklik, kapsamımız dışında yer almaktadır.
-                </p>
+                <p>Teklifimiz, yukarıdaki başlıklar dahilinde yapılacak olan çalışmaları kapsamaktadır. Bu kapsam, analiz çalışması ile netleştirilecek olup, analizin onaylanması sonrasında, analiz kapsamı geçerli olacaktır. Proje tamamlanana kadar, analiz kapsamı dışında yapılacak olan talepler, ek efor olarak değerlendirilecek.</p>
+                <p>Salesforce lisans sınırları dışında kalan her türlü değişiklik, kapsamımız dışında yer almaktadır.</p>
             </div>
         </div>
         <div class="std-footer">
-            <div class="std-footer-left">
-                {{#if imgSalesforceLogo}}
-                    <img src="data:image/png;base64,{{imgSalesforceLogo}}">
-                {{/if}}
-            </div>
-            <div class="std-footer-right">
-                Atatürk Mahallesi, Ertuğrulgazi Sokak<br>
-                Metropol İstanbul Sitesi C1 Blok K:0 D:28<br>
-                Ataşehir / İstanbul<br>
-                <a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br>
-                <a href="https://www.wside.com.tr" target="_blank">www.wside.com</a>
-            </div>
+            <div class="std-footer-left">{{#if imgSalesforceLogo}}<img src="data:image/png;base64,{{imgSalesforceLogo}}">{{/if}}</div>
+            <div class="std-footer-right">Atatürk Mahallesi...<br><a href="mailto:info@wside.com.tr">info@wside.com.tr</a><br><a href="https://www.wside.com.tr" target="_blank">www.wside.com</a></div>
         </div>
     </div>
 
     <div class="page-std">
-        <div class="std-header">
-            {{#if imgWside}}
-                <img src="data:image/png;base64,{{imgWside}}">
-            {{/if}}
-        </div>
+        <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
         <div class="content-body">
             <div class="section-header">TEKLİF</div>
             
@@ -492,11 +385,7 @@
     </div>
 
     <div class="page-std">
-        <div class="std-header">
-            {{#if imgWside}}
-                <img src="data:image/png;base64,{{imgWside}}">
-            {{/if}}
-        </div>
+        <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
         <div class="content-body">
             <div class="section-header">TEKLİF ŞARTLARI</div>
             
