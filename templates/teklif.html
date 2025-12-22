@@ -8,7 +8,7 @@
         @page { size: A4; margin: 0; }
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #fff; -webkit-print-color-adjust: exact; color: #333; }
         
-        /* 1. SABİT SAYFA STİLİ (Tek sayfalık içerikler için) */
+        /* 1. SABİT SAYFA STİLİ */
         .page-std {
             width: 210mm;
             height: 297mm;
@@ -22,8 +22,7 @@
             position: relative;
         }
 
-        /* 2. UZUN İÇERİK SAYFASI (Header/Footer Tekrarı İçin) */
-        /* Bu yapı, tablonun uzaması durumunda header/footer'ı korur */
+        /* 2. UZUN İÇERİK SAYFASI */
         .page-long-content {
             width: 210mm;
             min-height: 297mm;
@@ -31,10 +30,10 @@
             box-sizing: border-box;
             background: white;
             break-before: page;
-            display: block; /* Flex değil, blok yapıyoruz */
+            display: block;
         }
 
-        /* HEADER & FOOTER STİLLERİ */
+        /* HEADER & FOOTER */
         .std-header { width: 100%; display: flex; justify-content: flex-end; margin-bottom: 30px; }
         .std-header img { height: 40px; width: auto; }
         
@@ -86,7 +85,7 @@
         .proposal-intro { font-size: 14px; color: #333; margin-bottom: 15px; }
         .license-header { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 10px; margin-top: 5px; text-transform: uppercase; }
         
-        /* Ana Ürün Tablosu */
+        /* Ana Tablo */
         .license-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 0; }
         .license-table th { background-color: #E31837; color: white; padding: 8px; text-align: center; font-weight: 600; border: 1px solid #cc1532; }
         .license-table td { padding: 8px; border: 1px solid #eee; text-align: center; color: #444; }
@@ -129,7 +128,12 @@
         .excel-table th, .excel-table td { border: 1px solid #ccc; padding: 8px; vertical-align: top; }
         .excel-table tr:first-child td { background-color: #E31837; color: white; font-weight: bold; text-align: center; }
         .excel-table tr:nth-child(even) { background-color: #f9f9f9; }
-        .filled-cell { background-color: #f0f0f0 !important; color: transparent; }
+        
+        /* GÜNCELLENDİ: WSIDE KIRMIZISI (#E31837) ve Görünmez Yazı */
+        .filled-cell { 
+            background-color: #E31837 !important; 
+            color: transparent !important; 
+        }
 
         /* ARKA KAPAK */
         .back-cover-content { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-bottom: 50px; }
@@ -140,8 +144,7 @@
         .contact-item strong { color: #333; display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
         .contact-item a { color: #E31837; text-decoration: none; font-weight: 600; font-size: 16px; }
 
-        /* WRAPPER TABLO STİLİ (SAYFALANABİLİR YAPILAR İÇİN) */
-        /* Bu stil, içeriğin uzun olduğu durumlarda header/footer'ı tekrar ettirir */
+        /* WRAPPER TABLO STİLİ */
         .long-content-wrapper { width: 100%; border-collapse: collapse; }
         .long-content-wrapper thead { display: table-header-group; }
         .long-content-wrapper tfoot { display: table-footer-group; }
@@ -255,9 +258,7 @@
         <table class="long-content-wrapper">
             <thead>
                 <tr>
-                    <td>
-                        <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
-                    </td>
+                    <td><div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div></td>
                 </tr>
             </thead>
             <tfoot>
@@ -277,18 +278,14 @@
                             <div class="section-header">3. SALESFORCE PROJE KAPSAM & TEKLİFİ</div>
                             
                             <div class="sub-header">KAPSAM;</div>
-                            <div class="std-text">
-                                <p>Müşteri ile yapılan görüşmelere istinaden oluşturulan proje kapsamı aşağıdaki şekilde belirtilmiştir:</p>
-                            </div>
+                            <div class="std-text"><p>Müşteri ile yapılan görüşmelere istinaden oluşturulan proje kapsamı aşağıdaki şekilde belirtilmiştir:</p></div>
 
                             {{#if excelRows}}
                             <div style="margin-bottom: 20px;">
                                 <table class="excel-table">
                                     {{#each excelRows}}
                                     <tr>
-                                        {{#each this}}
-                                        <td>{{this}}</td>
-                                        {{/each}}
+                                        {{#each this}}<td>{{this}}</td>{{/each}}
                                     </tr>
                                     {{/each}}
                                 </table>
@@ -307,9 +304,19 @@
                                 <table class="excel-table" style="font-size: 10px; text-align: center;">
                                     {{#each tpExcelRows}}
                                     <tr>
-                                        {{#each this}}
-                                        <td class="{{#if this}}filled-cell{{/if}}">{{this}}</td>
-                                        {{/each}}
+                                        {{#if @first}}
+                                            {{#each this}}
+                                                <td style="font-weight: bold; background-color: #333; color: white;">{{this}}</td>
+                                            {{/each}}
+                                        {{else}}
+                                            {{#each this}}
+                                                {{#if @first}}
+                                                    <td style="text-align: left; font-weight: bold; width: 120px;">{{this}}</td>
+                                                {{else}}
+                                                    <td class="{{#if this}}filled-cell{{/if}}">{{this}}</td>
+                                                {{/if}}
+                                            {{/each}}
+                                        {{/if}}
                                     </tr>
                                     {{/each}}
                                 </table>
@@ -318,9 +325,7 @@
 
                             {{#if teamExcelRows}}
                             <div class="sub-header" style="margin-top:20px; margin-bottom:5px;">PROJE EKİBİ;</div>
-                            <div class="std-text">
-                                <p>Belirtilen kapsam ve proje talebi için oluşturulacak Wside Proje ekibi aşağıdaki şekilde belirtilmiştir:</p>
-                            </div>
+                            <div class="std-text"><p>Belirtilen kapsam ve proje talebi için oluşturulacak Wside Proje ekibi aşağıdaki şekilde belirtilmiştir:</p></div>
                             <div style="margin-bottom: 20px;">
                                 <table class="excel-table" style="width: 60%;">
                                     {{#each teamExcelRows}}
@@ -350,9 +355,7 @@
         <table class="long-content-wrapper">
             <thead>
                 <tr>
-                    <td>
-                        <div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div>
-                    </td>
+                    <td><div class="std-header">{{#if imgWside}}<img src="data:image/png;base64,{{imgWside}}">{{/if}}</div></td>
                 </tr>
             </thead>
             <tfoot>
