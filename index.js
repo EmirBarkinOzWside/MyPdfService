@@ -150,32 +150,46 @@ app.listen(PORT, async () => {
 
 app.post('/create-pptx', (req, res) => {
     try {
-        // 1. Salesforce'tan gelen veriyi al (Body'den)
         const data = req.body; 
-        // Örnek data: { musteriAdi: "Redon", fiyat: "500 USD" ... }
 
-        // 2. Şablon Dosyasını Oku (template.pptx dosyasının kök dizinde olduğunu varsayıyoruz)
+        // --- RESİM AYARLARI ---
+        const imageOpts = {
+            centered: false, // Resmi ortalama
+            getImage: function(tagValue, tagName) {
+                // Salesforce'tan gelen Base64 verisini alıp Buffer'a çevirir
+                return Buffer.from(tagValue, "base64");
+            },
+            getSize: function(img, tagValue, tagName) {
+                // Resim boyutlarını ayarla (Genişlik x Yükseklik)
+                // Şimdilik sabit 150x150 piksel yapıyoruz.
+                // İstersen Apex'ten 'logoWidth', 'logoHeight' diye parametre gönderip burada okuyabilirsin.
+                return [150, 150]; 
+            }
+        };
+
+        // Resim modülünü başlat
+        const imageModule = new ImageModule(imageOpts);
+
+        // Şablonu Oku
         const content = fs.readFileSync(path.resolve(__dirname, "template.pptx"), "binary");
-
-        // 3. Zip dosyasını yükle (PPTX aslında bir ZIP'tir)
         const zip = new PizZip(content);
 
-        // 4. Docxtemplater'ı başlat (Paragraf ve satır sonlarını otomatik ayarlar)
+        // Docxtemplater'ı Resim Modülü ile başlat
         const doc = new Docxtemplater(zip, {
             paragraphLoop: true,
             linebreaks: true,
+            modules: [imageModule] // Modülü buraya ekledik
         });
 
-        // 5. Şablondaki {susluParantez} alanlarını Salesforce verisiyle doldur
+        // Veriyi Doldur
         doc.render(data);
 
-        // 6. Dosyayı oluştur (Buffer olarak)
+        // Dosyayı Oluştur
         const buf = doc.getZip().generate({
             type: "nodebuffer",
             compression: "DEFLATE",
         });
 
-        // 7. Dosyayı Base64 formatına çevirip Salesforce'a geri gönder
         const base64File = buf.toString('base64');
         
         res.json({
