@@ -7,7 +7,6 @@ const path = require('path');
 const xlsx = require('xlsx'); // <-- YENİ: Excel işlemleri için gerekli
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
-const path = require("path");
 
 const app = express();
 // Salesforce'tan büyük dosya (resim/excel) gelebileceği için limit yüksek olmalı
