@@ -5,6 +5,10 @@ const hbs = require('handlebars');
 const fs = require('fs');
 const path = require('path');
 const xlsx = require('xlsx'); // <-- YENİ: Excel işlemleri için gerekli
+const PizZip = require("pizzip");
+const Docxtemplater = require("docxtemplater");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 // Salesforce'tan büyük dosya (resim/excel) gelebileceği için limit yüksek olmalı
@@ -144,4 +148,46 @@ app.listen(PORT, async () => {
     console.log(`Sunucu ${PORT} portunda çalışıyor!`);
     // Sunucu açılır açılmaz tarayıcıyı hazırla
     await getBrowser();
+});
+
+app.post('/create-pptx', (req, res) => {
+    try {
+        // 1. Salesforce'tan gelen veriyi al (Body'den)
+        const data = req.body; 
+        // Örnek data: { musteriAdi: "Redon", fiyat: "500 USD" ... }
+
+        // 2. Şablon Dosyasını Oku (template.pptx dosyasının kök dizinde olduğunu varsayıyoruz)
+        const content = fs.readFileSync(path.resolve(__dirname, "template.pptx"), "binary");
+
+        // 3. Zip dosyasını yükle (PPTX aslında bir ZIP'tir)
+        const zip = new PizZip(content);
+
+        // 4. Docxtemplater'ı başlat (Paragraf ve satır sonlarını otomatik ayarlar)
+        const doc = new Docxtemplater(zip, {
+            paragraphLoop: true,
+            linebreaks: true,
+        });
+
+        // 5. Şablondaki {susluParantez} alanlarını Salesforce verisiyle doldur
+        doc.render(data);
+
+        // 6. Dosyayı oluştur (Buffer olarak)
+        const buf = doc.getZip().generate({
+            type: "nodebuffer",
+            compression: "DEFLATE",
+        });
+
+        // 7. Dosyayı Base64 formatına çevirip Salesforce'a geri gönder
+        const base64File = buf.toString('base64');
+        
+        res.json({
+            status: 'success',
+            fileContent: base64File,
+            fileName: 'Teklif_Sunumu.pptx'
+        });
+
+    } catch (error) {
+        console.error("PPTX Hatası:", error);
+        res.status(500).json({ status: 'error', message: error.message });
+    }
 });
