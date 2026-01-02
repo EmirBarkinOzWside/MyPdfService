@@ -7,7 +7,6 @@ const path = require('path');
 const xlsx = require('xlsx'); // <-- YENİ: Excel işlemleri için gerekli
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
-const fs = require("fs");
 const path = require("path");
 
 const app = express();
