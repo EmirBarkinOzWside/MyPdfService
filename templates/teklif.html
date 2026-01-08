@@ -403,7 +403,29 @@
                     </tr>
                 </tfoot>
             </table>
-
+            {{#if danismanlikUrunler}}
+            <div class="license-header" style="margin-top: 20px;">Danışmanlık Hizmetleri</div>
+            <table class="license-table">
+                <thead>
+                    <tr>
+                        <th style="width: 45%;">Hizmet Tipi</th>
+                        <th style="width: 15%;">Süre (Adam/Gün)</th>
+                        <th style="width: 20%;">Birim Fiyat</th>
+                        <th style="width: 20%;">Toplam Tutar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each danismanlikUrunler}}
+                    <tr>
+                        <td style="text-align: left;">{{urunAdi}}</td>
+                        <td>{{miktar}}</td>
+                        <td>{{birimFiyat}} {{../paraBirimi}}</td>
+                        <td>{{toplamFiyat}} {{../paraBirimi}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{/if}}
             <div class="license-header">Fatura Planı</div>
             <table class="invoice-table">
                 <thead><tr><th>Fatura Planı</th><th>Vade</th><th>Ödeme Tarihi</th><th>Tutar</th></tr></thead>
