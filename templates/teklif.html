@@ -378,7 +378,7 @@
                 <tbody>
                     {{#each urunler}}
                     <tr>
-                        <td>{{urunAdi}}</td>
+                        <td style="text-align: left;">{{urunAdi}}</td>
                         <td>{{miktar}}</td>
                         <td>{{birimFiyatYillik}} {{../paraBirimi}}</td>
                         <td>{{birimFiyat}} {{../paraBirimi}}</td>
@@ -388,23 +388,13 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4" class="total-row-cell" style="text-align: left; padding-left: 15px !important;">GENEL TOPLAM</td>
-                        <td class="total-row-cell" style="text-align: center;">{{genelToplam}} {{paraBirimi}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" class="terms-row-cell">
-                            <strong style="display:block; margin-bottom:5px;">Şartlar:</strong>
-                            <ul class="terms-list-table">
-                                <li>Lisans faturalamaları yıllık, peşin olarak gerçekleştirilecektir.</li>
-                                <li>Fiyatlar 24 aylık ve daha uzun süreli sözleşmeler için geçerlidir.</li>
-                                <li>Fiyatlar Salesforce son onayına tabidir.</li>
-                            </ul>
-                        </td>
+                        <td colspan="4" class="total-row-cell" style="text-align: right; padding-right: 15px !important; background-color: #f3f3f3 !important; color: #333 !important; border: 1px solid #ddd !important;">LİSANS TOPLAMI</td>
+                        <td class="total-row-cell" style="text-align: center; background-color: #f3f3f3 !important; color: #333 !important; border: 1px solid #ddd !important;">{{lisansGenelToplam}} {{paraBirimi}}</td>
                     </tr>
                 </tfoot>
             </table>
             {{#if danismanlikUrunler}}
-            <div class="license-header" style="margin-top: 20px;">Danışmanlık Hizmetleri</div>
+            <div class="license-header" style="margin-top: 25px;">Danışmanlık Hizmetleri</div>
             <table class="license-table">
                 <thead>
                     <tr>
@@ -424,6 +414,12 @@
                     </tr>
                     {{/each}}
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="total-row-cell" style="text-align: right; padding-right: 15px !important; background-color: #f3f3f3 !important; color: #333 !important; border: 1px solid #ddd !important;">DANIŞMANLIK TOPLAMI</td>
+                        <td class="total-row-cell" style="text-align: center; background-color: #f3f3f3 !important; color: #333 !important; border: 1px solid #ddd !important;">{{danismanlikToplam}} {{paraBirimi}}</td>
+                    </tr>
+                </tfoot>
             </table>
             {{/if}}
             <div class="license-header">Fatura Planı</div>
