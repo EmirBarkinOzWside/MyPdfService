@@ -399,7 +399,9 @@
                 <thead>
                     <tr>
                         <th style="width: 45%;">Hizmet Tipi</th>
-                        <th style="width: 15%;">Süre (Adam/Gün)</th>
+                        {{#if showDurationColumn}}
+                            <th style="width: 15%;">Süre (Adam/Gün)</th>
+                        {{/if}}
                         <th style="width: 20%;">Birim Fiyat</th>
                         <th style="width: 20%;">Toplam Tutar</th>
                     </tr>
@@ -408,7 +410,9 @@
                     {{#each danismanlikUrunler}}
                     <tr>
                         <td style="text-align: left;">{{urunAdi}}</td>
-                        <td>{{miktar}}</td>
+                        {{#if @root.showDurationColumn}}
+                            <td>{{miktar}}</td>
+                        {{/if}}
                         <td>{{birimFiyat}} {{../paraBirimi}}</td>
                         <td>{{toplamFiyat}} {{../paraBirimi}}</td>
                     </tr>
