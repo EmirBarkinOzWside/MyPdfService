@@ -393,6 +393,18 @@
                     </tr>
                 </tfoot>
             </table>
+            {{#if lisansFaturaPlanlari}}
+            <div class="mini-invoice-box">
+                <div class="mini-invoice-title">LİSANS ÖDEME PLANI</div>
+                {{#each lisansFaturaPlanlari}}
+                <div class="mini-invoice-row">
+                    <span><span class="mini-label">Vade:</span> <span class="mini-val">{{vade}}</span></span>
+                    <span><span class="mini-label">Tahmini Ödeme:</span> <span class="mini-val">{{odemeTarihi}}</span></span>
+                    <span><span class="mini-label">Tutar:</span> <span class="mini-val">{{tutar}} {{paraBirimi}}</span></span>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
             {{#if danismanlikUrunler}}
             <div class="license-header" style="margin-top: 25px;">Danışmanlık Hizmetleri</div>
             <table class="license-table">
@@ -425,6 +437,19 @@
                     </tr>
                 </tfoot>
             </table>
+            {{#if danismanlikFaturaPlanlari}}
+            <div class="mini-invoice-box">
+                <div class="mini-invoice-title">DANIŞMANLIK ÖDEME PLANI</div>
+                {{#each danismanlikFaturaPlanlari}}
+                <div class="mini-invoice-row">
+                    <span><span class="mini-label">Vade:</span> <span class="mini-val">{{vade}}</span></span>
+                    <span><span class="mini-label">Tahmini Ödeme:</span> <span class="mini-val">{{odemeTarihi}}</span></span>
+                    <span><span class="mini-label">Tutar:</span> <span class="mini-val">{{tutar}} {{paraBirimi}}</span></span>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
+            {{/if}}
             {{/if}}
             <div class="license-header">Fatura Planı</div>
             <table class="invoice-table">
