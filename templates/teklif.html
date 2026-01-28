@@ -420,7 +420,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3" class="total-row-cell" style="text-align: right; padding-right: 15px !important; background-color: #f3f3f3 !important; color: #333 !important; border: 1px solid #ddd !important;">DANIŞMANLIK TOPLAMI</td>
+                        <td colspan="{{#if showDurationColumn}}3{{else}}2{{/if}}" class="total-row-cell" style="text-align: right; padding-right: 15px !important; background-color: #f3f3f3 !important; color: #333 !important; border: 1px solid #ddd !important;">DANIŞMANLIK TOPLAMI</td>
                         <td class="total-row-cell" style="text-align: center; background-color: #f3f3f3 !important; color: #333 !important; border: 1px solid #ddd !important;">{{danismanlikToplam}} {{paraBirimi}}</td>
                     </tr>
                 </tfoot>
