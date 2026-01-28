@@ -450,17 +450,7 @@
             </div>
             {{/if}}
             {{/if}}
-            {{/if}}
-            <div class="license-header">Fatura Planı</div>
-            <table class="invoice-table">
-                <thead><tr><th>Fatura Planı</th><th>Vade</th><th>Ödeme Tarihi</th><th>Tutar</th></tr></thead>
-                <tbody>
-                    {{#each faturaPlanlari}}
-                    <tr><td>{{faturaTarihi}}</td><td>{{vade}}</td><td>{{odemeTarihi}}</td><td>{{tutar}} {{paraBirimi}}</td></tr>
-                    {{/each}}
-                </tbody>
-            </table>
-            <div class="invoice-total-row">TOPLAM: {{faturaGenelToplam}} {{paraBirimi}}</div>
+            
         </div>
         <div class="flex-footer">
             <div class="flex-footer-left">{{#if imgSalesforceLogo}}<img src="data:image/png;base64,{{imgSalesforceLogo}}">{{/if}}</div>
