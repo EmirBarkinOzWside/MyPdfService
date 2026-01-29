@@ -8,7 +8,61 @@
         @page { size: A4; margin: 0; }
         * { box-sizing: border-box; }
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #fff; -webkit-print-color-adjust: exact; color: #333; }
-        
+        /* --- YENİ EKLENEN: ENTEGRE FATURA PLANI STİLLERİ --- */
+
+/* Fatura Planı Dış Çerçevesi (Tabloya yapışık) */
+.invoice-plan-container {
+    width: 100%;
+    border-left: 1px solid #cc1532; /* Tablo kenarlarıyla uyumlu */
+    border-right: 1px solid #cc1532;
+    border-bottom: 1px solid #cc1532;
+    background-color: #fcfcfc;
+    margin-bottom: 25px; /* Bir sonraki bölüme boşluk */
+    margin-top: -1px; /* Üstteki tablonun çizgisiyle birleşmesi için */
+}
+
+/* Başlık Şeridi */
+.invoice-plan-header {
+    background-color: #f0f0f0;
+    color: #333;
+    font-weight: 700;
+    font-size: 10px;
+    padding: 6px 10px;
+    border-bottom: 1px solid #e0e0e0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* İç Tablo Yapısı */
+.invoice-sub-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10px;
+}
+
+.invoice-sub-table th {
+    text-align: left;
+    padding: 6px 10px;
+    color: #666;
+    font-weight: 600;
+    border-bottom: 1px dashed #ddd;
+    background-color: #fff;
+    width: 20%; /* Kolonları eşit dağıtalım */
+}
+
+.invoice-sub-table td {
+    padding: 6px 10px;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.invoice-sub-table tr:last-child td {
+    border-bottom: none;
+}
+
+.text-right {
+    text-align: right !important;
+}
         /* 1. FLEX SAYFA STİLİ (Standart Sayfalar: Mektup, Şartlar, Teklif, Kapsam Dışı vb.) */
         /* Bu yapı Footer'ı her zaman EN ALTA yapıştırır */
         .page-flex {
@@ -365,7 +419,8 @@
             <div class="proposal-intro"><strong>{{musteriIsmi}}</strong> için öngörülen Salesforce lisans bedelleri aşağıdaki şekilde belirtilmiştir:</div>
 
             <div class="license-header">Salesforce Lisans</div>
-            <table class="license-table">
+
+            <table class="license-table" style="margin-bottom: 0;">
                 <thead>
                     <tr>
                         <th style="width: 35%;">Lisans Tipi ve Versiyonu</th>
@@ -393,62 +448,99 @@
                     </tr>
                 </tfoot>
             </table>
+
             {{#if lisansFaturaPlanlari}}
-            <div class="mini-invoice-box">
-                <div class="mini-invoice-title">LİSANS ÖDEME PLANI</div>
-                {{#each lisansFaturaPlanlari}}
-                <div class="mini-invoice-row">
-                    <span><span class="mini-label">Vade:</span> <span class="mini-val">{{vade}}</span></span>
-                    <span><span class="mini-label">Tahmini Ödeme:</span> <span class="mini-val">{{odemeTarihi}}</span></span>
-                    <span><span class="mini-label">Tutar:</span> <span class="mini-val">{{tutar}} {{paraBirimi}}</span></span>
+                <div class="invoice-plan-container">
+                    <div class="invoice-plan-header">FATURA PLANI DETAYLARI (LİSANS)</div>
+                    <table class="invoice-sub-table">
+                        <thead>
+                            <tr>
+                                <th>Fatura Tarihi</th>
+                                <th>Vade (Gün)</th>
+                                <th>Taksit</th>
+                                <th>Tahmini Ödeme</th>
+                                <th class="text-right">Tutar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each lisansFaturaPlanlari}}
+                            <tr>
+                                <td>{{faturaTarihi}}</td>
+                                <td>{{vade}}</td>
+                                <td>{{taksit}}</td>
+                                <td>{{odemeTarihi}}</td>
+                                <td class="text-right" style="font-weight: bold;">{{tutar}} {{paraBirimi}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
                 </div>
-                {{/each}}
-            </div>
             {{/if}}
             {{#if danismanlikUrunler}}
-            <div class="license-header" style="margin-top: 25px;">Danışmanlık Hizmetleri</div>
-            <table class="license-table">
-                <thead>
-                    <tr>
-                        <th style="width: 45%;">Hizmet Tipi</th>
-                        {{#if showDurationColumn}}
+                <div class="license-header" style="margin-top: 25px;">Danışmanlık Hizmetleri</div>
+
+                <table class="license-table" style="margin-bottom: 0;">
+                    <thead>
+                        <tr>
+                            <th style="width: 45%;">Hizmet Tipi</th>
+                            
+                            {{#if @root.showDurationColumn}}
                             <th style="width: 15%;">Süre (Adam/Gün)</th>
-                        {{/if}}
-                        <th style="width: 20%;">Birim Fiyat</th>
-                        <th style="width: 20%;">Toplam Tutar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each danismanlikUrunler}}
-                    <tr>
-                        <td style="text-align: left;">{{aciklama}}</td>
-                        {{#if @root.showDurationColumn}}
+                            {{/if}}
+                            
+                            <th style="width: 20%;">Birim Fiyat</th>
+                            <th style="width: 20%;">Toplam Tutar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each danismanlikUrunler}}
+                        <tr>
+                            <td style="text-align: left;">{{urunAdi}}</td>
+                            
+                            {{#if @root.showDurationColumn}}
                             <td>{{miktar}}</td>
-                        {{/if}}
-                        <td>{{birimFiyat}} {{../paraBirimi}}</td>
-                        <td>{{toplamFiyat}} {{../paraBirimi}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="{{#if showDurationColumn}}3{{else}}2{{/if}}" class="total-row-cell" style="text-align: right; padding-right: 15px !important; background-color: #f3f3f3 !important; color: #333 !important; border: 1px solid #ddd !important;">DANIŞMANLIK TOPLAMI</td>
-                        <td class="total-row-cell" style="text-align: center; background-color: #f3f3f3 !important; color: #333 !important; border: 1px solid #ddd !important;">{{danismanlikToplam}} {{paraBirimi}}</td>
-                    </tr>
-                </tfoot>
-            </table>
-            {{#if danismanlikFaturaPlanlari}}
-            <div class="mini-invoice-box">
-                <div class="mini-invoice-title">DANIŞMANLIK ÖDEME PLANI</div>
-                {{#each danismanlikFaturaPlanlari}}
-                <div class="mini-invoice-row">
-                    <span><span class="mini-label">Vade:</span> <span class="mini-val">{{vade}}</span></span>
-                    <span><span class="mini-label">Tahmini Ödeme:</span> <span class="mini-val">{{odemeTarihi}}</span></span>
-                    <span><span class="mini-label">Tutar:</span> <span class="mini-val">{{tutar}} {{paraBirimi}}</span></span>
+                            {{/if}}
+                            
+                            <td>{{birimFiyat}} {{../paraBirimi}}</td>
+                            <td>{{toplamFiyat}} {{../paraBirimi}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="{{#if @root.showDurationColumn}}3{{else}}2{{/if}}" class="total-row-cell" style="text-align: right; padding-right: 15px !important; background-color: #f3f3f3 !important; color: #333 !important; border: 1px solid #ddd !important;">DANIŞMANLIK TOPLAMI</td>
+                            <td class="total-row-cell" style="text-align: center; background-color: #f3f3f3 !important; color: #333 !important; border: 1px solid #ddd !important;">{{danismanlikToplam}} {{paraBirimi}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                {{#if danismanlikFaturaPlanlari}}
+                <div class="invoice-plan-container">
+                    <div class="invoice-plan-header">ÖDEME PLANI DETAYLARI (DANIŞMANLIK)</div>
+                    <table class="invoice-sub-table">
+                        <thead>
+                            <tr>
+                                <th>Fatura Tarihi</th>
+                                <th>Vade (Gün)</th>
+                                <th>Taksit</th>
+                                <th>Tahmini Ödeme</th>
+                                <th class="text-right">Tutar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each danismanlikFaturaPlanlari}}
+                            <tr>
+                                <td>{{faturaTarihi}}</td>
+                                <td>{{vade}}</td>
+                                <td>{{taksit}}</td>
+                                <td>{{odemeTarihi}}</td>
+                                <td class="text-right" style="font-weight: bold;">{{tutar}} {{paraBirimi}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
                 </div>
-                {{/each}}
-            </div>
-            {{/if}}
+                {{/if}}
             {{/if}}
             
         </div>
